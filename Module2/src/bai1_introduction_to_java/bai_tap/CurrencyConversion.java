@@ -12,7 +12,7 @@ public class CurrencyConversion {
         System.out.println("Enter money USD:");
         moneyUSD = scanner.nextDouble();
 
-        double moneyVND = moneyUSD * rate;
+        double moneyVND = moneyUSD * RATE;
         System.out.println(moneyUSD + "USD = " + moneyVND + "VND");
     }
 }
