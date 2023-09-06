@@ -6,7 +6,7 @@ public class CurrencyConversion {
     public static void main(String[] args) {
 
         double moneyUSD;
-        final double rate = 23000;
+        final double RATE = 23000;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter money USD:");
