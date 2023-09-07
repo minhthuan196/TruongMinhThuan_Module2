@@ -9,15 +9,15 @@ public class FirstPrimeNumber {
         int number = scanner.nextInt();
         int countPrime = 0;
         int n = 2;
+        int count;
         while (countPrime < number) {
-            boolean flag = true;
-            for (int i = 2; i < n; i++) {
+            count = 0;
+            for (int i = 1; i <= Math.sqrt(n); i++) {
                 if (n % i == 0) {
-                    flag = false;
-                    break;
+                    count++;
                 }
             }
-            if (flag) {
+            if (count <= 1) {
                 System.out.print(n + " ");
                 countPrime++;
             }
