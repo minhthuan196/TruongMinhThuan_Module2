@@ -35,7 +35,5 @@ public class TotalDiagonalArray2D {
             System.out.print("\n");
         }
         System.out.println("Total diagonal array: " + totalDiagonal);
-
-
     }
 }

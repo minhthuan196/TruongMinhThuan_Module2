@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class DeleteElementArray {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[] arrayNumber = {0, 5, 6, 2, 3, 6, 0, 0, 7, 6, 9, 0};
+        int[] arrayNumber = {1, 5, 6, 2, 6, 6, 0, 0, 7, 6, 9, 2};
         System.out.print("Array value: ");
         for (int j : arrayNumber) {
             System.out.print(j + " ");
@@ -18,15 +18,17 @@ public class DeleteElementArray {
                 indexDelete += i + " ";
             }
         }
-        int last = arrayNumber.length;
-        for (int i = 0; i < last; i++) {
+        int lastIndex = arrayNumber.length;
+        for (int i = 0; i < lastIndex; i++) {
             if (number == arrayNumber[i]) {
                 for (int j = i; j < arrayNumber.length - 1; j++) {
                     arrayNumber[j] = arrayNumber[j + 1];
                 }
                 arrayNumber[arrayNumber.length - 1] = 0;
-                i--;
-                last--;
+                if (arrayNumber[i] == number) {
+                    i--;
+                }
+                lastIndex--;
             }
         }
         if (indexDelete.equals("")) {

@@ -7,7 +7,6 @@ public class MaxArray2D {
         Scanner scanner = new Scanner(System.in);
         int rowNumber;
         int colNumber;
-
         do {
             System.out.println("Enter row Array: ");
             rowNumber = scanner.nextInt();

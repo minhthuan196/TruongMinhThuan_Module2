@@ -15,19 +15,19 @@ public class MinArray {
                 System.out.println("Enter size array > 0");
             }
         } while (true);
-        int[] array = new int[size];
-        for (int i = 0; i < array.length; i++) {
+        int[] arrayNumber = new int[size];
+        for (int i = 0; i < arrayNumber.length; i++) {
             System.out.print("Enter element " + i + " : ");
-            array[i] = scanner.nextInt();
+            arrayNumber[i] = scanner.nextInt();
         }
         System.out.print("Array: ");
-        for (int j : array) {
+        for (int j : arrayNumber) {
             System.out.print(j + "\t");
         }
-        int min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (min > array[i]) {
-                min = array[i];
+        int min = arrayNumber[0];
+        for (int i = 1; i < arrayNumber.length; i++) {
+            if (min > arrayNumber[i]) {
+                min = arrayNumber[i];
             }
         }
         System.out.println("\nMin in array: " + min);

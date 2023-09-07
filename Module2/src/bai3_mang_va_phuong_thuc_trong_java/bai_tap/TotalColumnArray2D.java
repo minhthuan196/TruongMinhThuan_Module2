@@ -6,7 +6,7 @@ public class TotalColumnArray2D {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int rowNumber;
-        int colNumber;
+        int columnNumber;
 
         do {
             System.out.println("Enter row Array: ");
@@ -19,16 +19,16 @@ public class TotalColumnArray2D {
         } while (true);
         do {
             System.out.println("Enter column Array: ");
-            colNumber = scanner.nextInt();
-            if (colNumber > 0) {
+            columnNumber = scanner.nextInt();
+            if (columnNumber > 0) {
                 break;
             } else {
                 System.out.println("Enter column Array > 0");
             }
         } while (true);
-        double[][] arrayNumber = new double[rowNumber][colNumber];
+        double[][] arrayNumber = new double[rowNumber][columnNumber];
         for (int i = 0; i < arrayNumber.length; i++) {
-            arrayNumber[i] = new double[colNumber];
+            arrayNumber[i] = new double[columnNumber];
             for (int j = 0; j < arrayNumber[i].length; j++) {
                 System.out.println("Enter element [" + i + "][" + j + "]: ");
                 arrayNumber[i][j] = scanner.nextDouble();
@@ -41,20 +41,20 @@ public class TotalColumnArray2D {
             }
             System.out.print("\n");
         }
-        double totalCol = 0;
+        double totalColumn = 0;
         int column;
         do {
-            System.out.println("Enter column need add sum (>=0 and <" + colNumber + "): ");
+            System.out.println("Enter column need add sum (>=0 and <" + columnNumber + "): ");
             column = scanner.nextInt();
-            if (column >= 0 && column < colNumber) {
+            if (column >= 0 && column < columnNumber) {
                 break;
             } else {
                 System.out.println("Enter again!!");
             }
         } while (true);
         for (int j = 0; j < arrayNumber.length; j++) {
-            totalCol += arrayNumber[j][column];
+            totalColumn += arrayNumber[j][column];
         }
-        System.out.println("Total column " + column + " = " + totalCol);
+        System.out.println("Total column " + column + " = " + totalColumn);
     }
 }
