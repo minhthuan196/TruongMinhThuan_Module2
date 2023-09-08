@@ -1,8 +1,5 @@
 package bai4_lop_va_doi_tuong_java.bai_tap.b2_stop_watch;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 public class StopWatchMain {
     public static void main(String[] args) {
         int[] arrayNumber = new int[100000];
