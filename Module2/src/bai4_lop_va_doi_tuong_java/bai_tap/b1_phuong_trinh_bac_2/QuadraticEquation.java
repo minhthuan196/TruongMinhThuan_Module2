@@ -40,4 +40,16 @@ public class QuadraticEquation {
         r2 = (-b - Math.sqrt(getDiscriminant())) / 2 * getA();
         return r2;
     }
+
+    public String showResult() {
+        double delta;
+        delta = getDiscriminant();
+        if (delta > 0) {
+            return "The equation has two roots: " + getRoot1() + " and " + getRoot2();
+        } else if (delta == 0) {
+            return "The equation has one roots: " + getRoot1();
+        } else {
+            return "The equation has no roots";
+        }
+    }
 }

@@ -20,14 +20,6 @@ public class QuadraticEquationMain {
         System.out.println("Enter number c: ");
         double c = scanner.nextDouble();
         QuadraticEquation quadraticEquation = new QuadraticEquation(a, b, c);
-        double delta;
-        delta = quadraticEquation.getDiscriminant();
-        if (delta > 0) {
-            System.out.println("The equation has two roots: " + quadraticEquation.getRoot1() + " and " + quadraticEquation.getRoot2());
-        } else if (delta == 0) {
-            System.out.println("The equation has one roots: " + quadraticEquation.getRoot1());
-        } else {
-            System.out.println("The equation has no roots");
-        }
+        System.out.println(quadraticEquation.showResult());
     }
 }
