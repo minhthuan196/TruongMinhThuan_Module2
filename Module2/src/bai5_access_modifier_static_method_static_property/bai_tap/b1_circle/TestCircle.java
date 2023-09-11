@@ -5,9 +5,7 @@ public class TestCircle {
         Circle circle = new Circle();
         circle.setRadius(2);
         circle.setColor("Blue");
-
         Circle circle1 = new Circle(3);
-
         System.out.println("Circle");
         System.out.println("Radius: " + circle.getRadius());
         System.out.println("Color: " + circle.getColor());

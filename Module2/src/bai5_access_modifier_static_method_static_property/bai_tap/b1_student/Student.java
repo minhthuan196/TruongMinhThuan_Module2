@@ -14,13 +14,13 @@ public class Student {
     public void setClasses(String classes) {
         this.classes = classes;
     }
-
-    public String getName() {
-        return name;
+    // change access modifier: protected, default, private
+    /*private void setName(String name) {
+        this.name = name;
     }
 
-    public String getClasses() {
-        return classes;
-    }
+    private void setClasses(String classes) {
+        this.classes = classes;
+    }*/
 
 }

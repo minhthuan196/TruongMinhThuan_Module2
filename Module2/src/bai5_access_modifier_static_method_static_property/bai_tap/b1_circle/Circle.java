@@ -29,8 +29,20 @@ public class Circle {
 
     public double getArea() {
         return Math.PI * Math.pow(getRadius(), 2);
-        //return Math.PI * getRadius() *getRadius();
     }
+
+    //change access modifier: private, protected, default
+   /* private double getRadius() {
+        return radius;
+    }
+
+    private String getColor() {
+        return color;
+    }
+
+    private double getArea() {
+        return Math.PI * Math.pow(getRadius(), 2);
+    }*/
 
 
 }
