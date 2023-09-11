@@ -25,19 +25,19 @@ public class QuadraticEquation {
 
     public double getDiscriminant() {
         double delta;
-        delta = Math.pow(getB(), 2) - 4 * getA() * getC();
+        delta = (Math.pow(getB(), 2)) - 4 * getA() * getC();
         return delta;
     }
 
     public double getRoot1() {
         double r1;
-        r1 = (-b + Math.sqrt(getDiscriminant())) / 2 * getA();
+        r1 = (-b + Math.sqrt(getDiscriminant())) / (2 * getA());
         return r1;
     }
 
     public double getRoot2() {
         double r2;
-        r2 = (-b - Math.sqrt(getDiscriminant())) / 2 * getA();
+        r2 = (-b - Math.sqrt(getDiscriminant())) / (2 * getA());
         return r2;
     }
 
