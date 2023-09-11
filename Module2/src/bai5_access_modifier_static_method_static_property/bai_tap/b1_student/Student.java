@@ -1,8 +1,8 @@
 package bai5_access_modifier_static_method_static_property.bai_tap.b1_student;
 
 public class Student {
-    private String name;
-    private String classes;
+    private String name = "john";
+    private String classes = "C02";
 
     public Student() {
     }
