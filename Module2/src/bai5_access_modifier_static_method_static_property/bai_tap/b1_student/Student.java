@@ -14,7 +14,8 @@ public class Student {
     public void setClasses(String classes) {
         this.classes = classes;
     }
-    // change access modifier: protected, default, private
+    // change access modifier: protected, default ok
+    // private error
     /*private void setName(String name) {
         this.name = name;
     }

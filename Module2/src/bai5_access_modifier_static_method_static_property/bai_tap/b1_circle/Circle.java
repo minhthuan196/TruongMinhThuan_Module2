@@ -31,7 +31,8 @@ public class Circle {
         return Math.PI * Math.pow(getRadius(), 2);
     }
 
-    //change access modifier: private, protected, default
+    //change access modifier:protected, default ok
+    // private error
    /* private double getRadius() {
         return radius;
     }
