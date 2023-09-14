@@ -72,5 +72,6 @@ public class TennisGame {
         System.out.println(winPlayerDisplay(3, 3));
         System.out.println(winPlayerDisplay(4, 4));
         System.out.println(winPlayerDisplay(5, 2));
+        System.out.println(winPlayerDisplay(2, 6));
     }
 }
