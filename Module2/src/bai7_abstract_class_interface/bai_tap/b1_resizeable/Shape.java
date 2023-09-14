@@ -1,6 +1,6 @@
 package bai7_abstract_class_interface.bai_tap.b1_resizeable;
 
-public class Shape implements IResizeable {
+public class Shape  {
     private String color = "green";
     private boolean filled = true;
 
@@ -34,9 +34,5 @@ public class Shape implements IResizeable {
                 + getColor()
                 + " and "
                 + (isFilled() ? "filled" : "not filled");
-    }
-
-    @Override
-    public void resize(double percent) {
     }
 }

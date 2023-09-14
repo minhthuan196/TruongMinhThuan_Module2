@@ -15,7 +15,7 @@ public class Main {
         double percent = numberRandom / 100;
         System.out.println("Area after resize");
         for (Shape shape : shapes) {
-            shape.resize(percent);
+            ((IResizeable) shape).resize(percent);
             System.out.println(shape);
         }
 
