@@ -1,12 +1,12 @@
 package bai_tap_them.VehicleManagement.model;
 
 public abstract class Vehicle {
-    private int licensePlates;
-    private String manufacturer;
+    private String licensePlates;
+    private Manufacturer manufacturer;
     private int yearOfManufacture;
     private String owner;
 
-    public Vehicle(int licensePlates, String manufacturer, int yearOfManufacture, String owner) {
+    public Vehicle(String licensePlates, Manufacturer manufacturer, int yearOfManufacture, String owner) {
         this.licensePlates = licensePlates;
         this.manufacturer = manufacturer;
         this.yearOfManufacture = yearOfManufacture;
@@ -17,11 +17,11 @@ public abstract class Vehicle {
 
     }
 
-    public void setLicensePlates(int licensePlates) {
+    public void setLicensePlates(String licensePlates) {
         this.licensePlates = licensePlates;
     }
 
-    public void setManufacturer(String manufacturer) {
+    public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
 
@@ -33,11 +33,11 @@ public abstract class Vehicle {
         this.owner = owner;
     }
 
-    public int getLicensePlates() {
+    public String getLicensePlates() {
         return licensePlates;
     }
 
-    public String getManufacturer() {
+    public Manufacturer getManufacturer() {
         return manufacturer;
     }
 
@@ -51,9 +51,9 @@ public abstract class Vehicle {
 
     @Override
     public String toString() {
-        return "licensePlates='" + licensePlates + '\t' +
-                ", manufacturer='" + manufacturer + '\t' +
-                ", yearOfManufacture=" + yearOfManufacture +
-                ", owner='" + owner + '\t';
+        return "licensePlates = " + licensePlates + '\t' +
+                ", manufacturer = " + manufacturer + '\t' +
+                ", yearOfManufacture = " + yearOfManufacture +
+                ", owner = " + owner + '\t';
     }
 }
