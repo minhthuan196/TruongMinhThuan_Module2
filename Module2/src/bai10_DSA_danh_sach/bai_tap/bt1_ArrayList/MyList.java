@@ -48,14 +48,15 @@ public class MyList<E> {
     }
 
     public E remove(int index) {
-        if (index > size || index < 0) {
+        Object temp = elements[index];
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
         } else {
             for (int i = index; i < size - 1; i++) {
                 elements[i] = elements[i + 1];
             }
             size--;
-            return (E) elements[index];
+            return (E) temp;
         }
     }
 
