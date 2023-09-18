@@ -28,6 +28,7 @@ public class Palindrome {
 
     public static void main(String[] args) {
         Palindrome palindrome = new Palindrome();
+        System.out.println(palindrome.checkPalindrome("Able was I ere I saw Elba"));
         System.out.println(palindrome.checkPalindrome("Able was I ere I saw Elba thuan"));
     }
 }
