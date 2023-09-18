@@ -244,9 +244,21 @@ public class VehicleManagement {
                 if (car == null && motorbike == null && trunk == null) {
                     System.out.println("No vehicle was found!!!");
                 } else {
-                    System.out.println(car);
-                    System.out.println(motorbike);
-                    System.out.println(trunk);
+                    if (car == null) {
+                        System.out.println("No car was found!!!");
+                    } else {
+                        System.out.println(car);
+                    }
+                    if (motorbike == null) {
+                        System.out.println("No motorbike was found!!!");
+                    } else {
+                        System.out.println(motorbike);
+                    }
+                    if (trunk == null) {
+                        System.out.println("No trunk was found!!!");
+                    } else {
+                        System.out.println(trunk);
+                    }
                 }
                 break;
             case 5:

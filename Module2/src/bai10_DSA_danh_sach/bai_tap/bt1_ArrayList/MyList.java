@@ -48,15 +48,15 @@ public class MyList<E> {
     }
 
     public E remove(int index) {
-        for (int i = 0; i < size; i++) {
-            if (index == i) {
-                for (int j = i; j < size - 1; j++) {
-                    elements[j] = elements[j + 1];
-                }
-                size--;
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
+        } else {
+            for (int i = index; i < size - 1; i++) {
+                elements[i] = elements[i + 1];
             }
+            size--;
+            return (E) elements[index];
         }
-        return (E) elements[index];
     }
 
     public int size() {
@@ -89,11 +89,6 @@ public class MyList<E> {
     }
 
     public boolean add(E e) {
-        for (int i = 0; i < size; i++) {
-            if (e == elements[i]) {
-                return false;
-            }
-        }
         if (size == elements.length) {
             ensureCapacity(1);
         }
