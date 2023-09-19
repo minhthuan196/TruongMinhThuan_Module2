@@ -40,9 +40,9 @@ public class ProductRepositoryRepository implements IProductRepository {
 
     @Override
     public void removeProduct(int idProduct) {
-        for (Product product : this.productList) {
-            if (product.getIdProduct() == idProduct) {
-                this.productList.remove(product);
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getIdProduct() == idProduct) {
+                this.productList.remove(productList.get(i));
             }
         }
     }

@@ -49,7 +49,7 @@ public class ProductManagement {
     }
 
     public Product updateProductView() {
-        int idProduct = this.idProduct();
+        int idProduct = this.inputIdProduct();
         for (Product product : productController.showProduct()) {
             if (product.getIdProduct() == idProduct) {
                 System.out.println("Enter new name: ");
@@ -63,7 +63,7 @@ public class ProductManagement {
     }
 
 
-    public int idProduct() {
+    public int inputIdProduct() {
         System.out.println("Enter ID: ");
         return Integer.parseInt(scanner.nextLine());
     }
@@ -83,6 +83,7 @@ public class ProductManagement {
         switch (option) {
             case 1:
                 this.productController.createProduct(inputProductView());
+                System.out.println("Create successfully");
                 break;
             case 2:
                 Product product = this.updateProductView();
@@ -94,15 +95,19 @@ public class ProductManagement {
                 }
                 break;
             case 3:
-                int idProduct = this.idProduct();
-//                if (this.checkIdProduct(idProduct)) {
-//                    this.productController.removeProduct(idProduct);
-//                    System.out.println("Delete successfully");
-//                } else {
-//                    System.out.println("Not find ID !!!");
-//                }
-                this.productController.removeProduct(idProduct);
-                System.out.println("Delete successfully");
+                int idProduct = this.inputIdProduct();
+                if (this.checkIdProduct(idProduct)) {
+                    System.out.println("Are you sure you want to update it? (Yes/No)");
+                    String confirm = scanner.nextLine();
+                    if (confirm.equalsIgnoreCase("Yes")) {
+                        this.productController.removeProduct(idProduct);
+                        System.out.println("Delete successfully");
+                    } else if (confirm.equalsIgnoreCase("No")) {
+                        System.out.println("Cancel remove");
+                    }
+                } else {
+                    System.out.println("Not find ID !!!");
+                }
                 break;
             case 4:
                 System.out.println(this.productController.showProduct());
