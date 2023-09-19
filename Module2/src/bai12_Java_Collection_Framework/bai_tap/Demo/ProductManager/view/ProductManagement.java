@@ -37,7 +37,7 @@ public class ProductManagement {
         return choiceOption;
     }
 
-    public Product inputProduct() {
+    public Product inputProductView() {
         Product product = new Product();
         System.out.println("Enter ID product: ");
         product.setIdProduct(Integer.parseInt(scanner.nextLine()));
@@ -48,7 +48,7 @@ public class ProductManagement {
         return product;
     }
 
-    public Product updateProduct() {
+    public Product updateProductView() {
         int idProduct = this.idProduct();
         for (Product product : productController.showProduct()) {
             if (product.getIdProduct() == idProduct) {
@@ -68,30 +68,53 @@ public class ProductManagement {
         return Integer.parseInt(scanner.nextLine());
     }
 
+    public boolean checkIdProduct(int idProduct) {
+        for (Product product : this.productController.showProduct()) {
+            if (product.getIdProduct() == idProduct) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public void managementProduct() {
         int option = this.choose();
         switch (option) {
             case 1:
-                this.productController.createProduct(inputProduct());
+                this.productController.createProduct(inputProductView());
                 break;
             case 2:
-                Product product = this.updateProduct();
+                Product product = this.updateProductView();
                 if (product == null) {
                     System.out.println("Not find ID!!!");
                 } else {
                     this.productController.updateProduct(product);
+                    System.out.println("update successfully");
                 }
                 break;
             case 3:
                 int idProduct = this.idProduct();
+//                if (this.checkIdProduct(idProduct)) {
+//                    this.productController.removeProduct(idProduct);
+//                    System.out.println("Delete successfully");
+//                } else {
+//                    System.out.println("Not find ID !!!");
+//                }
                 this.productController.removeProduct(idProduct);
+                System.out.println("Delete successfully");
                 break;
             case 4:
                 System.out.println(this.productController.showProduct());
                 break;
             case 5:
                 System.out.println("Enter name product need find: ");
-                System.out.println(this.productController.findProduct(scanner.nextLine()));
+                Product product1 = this.productController.findProduct(scanner.nextLine());
+                if (product1 == null) {
+                    System.out.println("Not find product");
+                } else {
+                    System.out.println(product1);
+                }
                 break;
             case 6:
                 System.out.println("Ascending sort product!!");

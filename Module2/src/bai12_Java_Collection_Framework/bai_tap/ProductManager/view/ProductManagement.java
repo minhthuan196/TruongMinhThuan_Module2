@@ -67,7 +67,12 @@ public class ProductManagement {
                 break;
             case 5:
                 System.out.println("Enter name product need find: ");
-                System.out.println(this.productController.findProduct(scanner.nextLine()));
+                Product product = this.productController.findProduct(scanner.nextLine());
+                if (product == null) {
+                    System.out.println("Not find product!!!");
+                } else {
+                    System.out.println(product);
+                }
                 break;
             case 6:
                 System.out.println("Ascending sort product!!");
