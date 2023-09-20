@@ -34,6 +34,7 @@ public class ProductRepositoryRepository implements IProductRepository {
             if (p.getIdProduct() == product.getIdProduct()) {
                 p.setNameProduct(product.getNameProduct());
                 p.setPriceProduct(product.getPriceProduct());
+                break;
             }
         }
     }
@@ -43,6 +44,7 @@ public class ProductRepositoryRepository implements IProductRepository {
         for (int i = 0; i < productList.size(); i++) {
             if (productList.get(i).getIdProduct() == idProduct) {
                 this.productList.remove(productList.get(i));
+                break;
             }
         }
     }
