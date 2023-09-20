@@ -1,13 +1,14 @@
-package bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.repository;
+package bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.repository.impl;
 
 
 import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.model.Product;
+import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.repository.IProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductRepositoryRepository implements IProductRepository {
+public class ProductRepositoryRepositoryImpl implements IProductRepository {
 
     private final List<Product> productList = new ArrayList<>();
 
@@ -39,11 +40,20 @@ public class ProductRepositoryRepository implements IProductRepository {
         }
     }
 
+    //    @Override
+//    public void removeProduct(int idProduct) {
+//        for (int i = 0; i < productList.size(); i++) {
+//            if (productList.get(i).getIdProduct() == idProduct) {
+//                this.productList.remove(productList.get(i));
+//                break;
+//            }
+//        }
+//    }
     @Override
     public void removeProduct(int idProduct) {
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getIdProduct() == idProduct) {
-                this.productList.remove(productList.get(i));
+        for (Product product : productList) {
+            if (product.getIdProduct() == idProduct) {
+                this.productList.remove(product);
                 break;
             }
         }

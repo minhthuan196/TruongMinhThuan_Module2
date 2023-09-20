@@ -1,41 +1,41 @@
 package bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.controller;
 
 import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.model.Product;
-import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.service.ProductService;
+import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.service.impl.ProductServiceImpl;
 
 import java.util.List;
 
 public class ProductController {
-    private final ProductService productService = new ProductService();
+    private final ProductServiceImpl productServiceImpl = new ProductServiceImpl();
 
     public void createProduct(Product product) {
-        productService.createProduct(product);
+        productServiceImpl.createProduct(product);
     }
 
     public List<Product> showProduct() {
-        return productService.showProduct();
+        return productServiceImpl.showProduct();
     }
 
     public void updateProduct(Product product) {
-        productService.updateProduct(product);
+        productServiceImpl.updateProduct(product);
     }
 
     public void removeProduct(int idProduct) {
-        productService.removeProduct(idProduct);
+        productServiceImpl.removeProduct(idProduct);
     }
 
     public Product findProduct(String nameProduct) {
-        return productService.findProduct(nameProduct);
+        return productServiceImpl.findProduct(nameProduct);
     }
 
 
     public void ascendingSortProduct() {
-        productService.ascendingSortProduct();
+        productServiceImpl.ascendingSortProduct();
     }
 
 
     public void descendingSortProduct() {
-        productService.descendingSortProduct();
+        productServiceImpl.descendingSortProduct();
     }
 
 }

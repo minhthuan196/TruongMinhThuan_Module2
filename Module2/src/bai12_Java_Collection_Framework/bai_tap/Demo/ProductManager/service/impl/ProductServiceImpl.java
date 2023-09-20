@@ -1,12 +1,13 @@
-package bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.service;
+package bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.service.impl;
 
 import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.model.Product;
-import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.repository.ProductRepositoryRepository;
+import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.repository.impl.ProductRepositoryRepositoryImpl;
+import bai12_Java_Collection_Framework.bai_tap.Demo.ProductManager.service.IProductService;
 
 import java.util.List;
 
-public class ProductService implements IProductService {
-    private final ProductRepositoryRepository productRepository = new ProductRepositoryRepository();
+public class ProductServiceImpl implements IProductService {
+    private final ProductRepositoryRepositoryImpl productRepository = new ProductRepositoryRepositoryImpl();
 
     @Override
     public void createProduct(Product product) {
