@@ -1,5 +1,6 @@
 package bai13_thuan_toan_tim_kiem.bai_tap.bt2_binary_search;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BinarySearch {
@@ -24,8 +25,7 @@ public class BinarySearch {
         System.out.println("\nEnter number need find: ");
         int number1 = Integer.parseInt(scanner.nextLine());
         System.out.println("Index of " + number1 + ": "
-                + binarysearch(arrayNumber, number1, 0, arrayNumber.length - 1));
-
+                + binarySearch(arrayNumber, number1, 0, arrayNumber.length - 1));
     }
 
     public static int[] sortArrayNumber(int[] arrayNumber) {
@@ -41,7 +41,7 @@ public class BinarySearch {
         return arrayNumber;
     }
 
-    public static int binarysearch(int[] arrayNumber, int x, int low, int high) {
+    public static int binarySearch(int[] arrayNumber, int x, int low, int high) {
         if (arrayNumber.length == 0 || low > high) {
             return -1;
         }
@@ -52,9 +52,9 @@ public class BinarySearch {
                 return mid;
             }
             if (x > arrayNumber[mid]) {
-                return binarysearch(arrayNumber, x, mid + 1, high);
+                return binarySearch(arrayNumber, x, mid + 1, high);
             } else {
-                return binarysearch(arrayNumber, x, low, mid - 1);
+                return binarySearch(arrayNumber, x, low, mid - 1);
             }
         }
         return -1;
