@@ -18,9 +18,9 @@ public class TriangleException {
                     triangleException.checkNumberPositive(edgeA);
                     break;
                 } catch (NumberFormatException e) {
-                    System.out.println("Exception: " + e.getMessage() + ".Enter a number!!!");
+                    System.err.println("Exception: " + e.getMessage() + ".Enter a number!!!");
                 } catch (IllegalTriangleException e) {
-                    System.out.println("Exception: " + e.getError());
+                    System.err.println("Exception: " + e.getError());
                 }
             } while (true);
             do {
@@ -30,9 +30,9 @@ public class TriangleException {
                     triangleException.checkNumberPositive(edgeB);
                     break;
                 } catch (NumberFormatException e) {
-                    System.out.println("Exception: " + e.getMessage() + ".Enter a number!!!");
+                    System.err.println("Exception: " + e.getMessage() + ".Enter a number!!!");
                 } catch (IllegalTriangleException e) {
-                    System.out.println("Exception: " + e.getError());
+                    System.err.println("Exception: " + e.getError());
                 }
             } while (true);
             do {
@@ -42,9 +42,9 @@ public class TriangleException {
                     triangleException.checkNumberPositive(edgeC);
                     break;
                 } catch (NumberFormatException e) {
-                    System.out.println("Exception: " + e.getMessage() + ".Enter a number!!!");
+                    System.err.println("Exception: " + e.getMessage() + ".Enter a number!!!");
                 } catch (IllegalTriangleException e) {
-                    System.out.println("Exception: " + e.getError());
+                    System.err.println("Exception: " + e.getError());
                 }
             } while (true);
 
@@ -55,7 +55,8 @@ public class TriangleException {
                 System.err.println("Exception: " + e.getError());
             }
         } while (true);
-
+        Triangle triangle = new Triangle(edgeA, edgeB, edgeC);
+        System.out.println(triangle);
     }
 
     public void checkTriangle(int a, int b, int c) throws IllegalTriangleException {
