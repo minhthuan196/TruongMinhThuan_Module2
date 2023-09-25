@@ -11,42 +11,9 @@ public class TriangleException {
         int edgeB;
         int edgeC;
         do {
-            do {
-                System.out.println("Enter edge a: ");
-                try {
-                    edgeA = Integer.parseInt(scanner.nextLine());
-                    triangleException.checkNumberPositive(edgeA);
-                    break;
-                } catch (NumberFormatException e) {
-                    System.err.println("Exception: " + e.getMessage() + ".Enter a number!!!");
-                } catch (IllegalTriangleException e) {
-                    System.err.println("Exception: " + e.getError());
-                }
-            } while (true);
-            do {
-                System.out.println("Enter edge b: ");
-                try {
-                    edgeB = Integer.parseInt(scanner.nextLine());
-                    triangleException.checkNumberPositive(edgeB);
-                    break;
-                } catch (NumberFormatException e) {
-                    System.err.println("Exception: " + e.getMessage() + ".Enter a number!!!");
-                } catch (IllegalTriangleException e) {
-                    System.err.println("Exception: " + e.getError());
-                }
-            } while (true);
-            do {
-                System.out.println("Enter edge c: ");
-                try {
-                    edgeC = Integer.parseInt(scanner.nextLine());
-                    triangleException.checkNumberPositive(edgeC);
-                    break;
-                } catch (NumberFormatException e) {
-                    System.err.println("Exception: " + e.getMessage() + ".Enter a number!!!");
-                } catch (IllegalTriangleException e) {
-                    System.err.println("Exception: " + e.getError());
-                }
-            } while (true);
+            edgeA = getEdge("Enter edge a: ", scanner, triangleException);
+            edgeB = getEdge("Enter edge b: ", scanner, triangleException);
+            edgeC = getEdge("Enter edge c: ", scanner, triangleException);
 
             try {
                 triangleException.checkTriangle(edgeA, edgeB, edgeC);
@@ -57,6 +24,23 @@ public class TriangleException {
         } while (true);
         Triangle triangle = new Triangle(edgeA, edgeB, edgeC);
         System.out.println(triangle);
+    }
+
+    private static int getEdge(String x, Scanner scanner, TriangleException triangleException) {
+        int edge;
+        do {
+            System.out.println(x);
+            try {
+                edge = Integer.parseInt(scanner.nextLine());
+                triangleException.checkNumberPositive(edge);
+                break;
+            } catch (NumberFormatException e) {
+                System.err.println("Exception: " + e.getMessage() + ".Enter a number!!!");
+            } catch (IllegalTriangleException e) {
+                System.err.println("Exception: " + e.getError());
+            }
+        } while (true);
+        return edge;
     }
 
     public void checkTriangle(int a, int b, int c) throws IllegalTriangleException {

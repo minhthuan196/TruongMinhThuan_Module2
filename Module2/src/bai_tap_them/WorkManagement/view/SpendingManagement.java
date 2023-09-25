@@ -45,14 +45,18 @@ public class SpendingManagement {
         return false;
     }
 
+    public String inputSpendingId() {
+        System.out.println("Enter spending ID: ");
+        return scanner.nextLine();
+    }
+
     public Spending inputSpendingView() {
         Spending spending = new Spending();
         String spendingId;
         do {
-            System.out.println("Enter spending ID: ");
-            spendingId = scanner.nextLine();
+            spendingId = this.inputSpendingId();
             if (this.checkSpendingId(spendingId)) {
-                System.out.println("ID already exists");
+                System.out.println("Spending ID already exists");
             } else {
                 break;
             }
@@ -69,6 +73,23 @@ public class SpendingManagement {
         return spending;
     }
 
+    public Spending updateSpendingView(String spendingId) {
+        for (Spending spending : this.spendingController.showSpending()) {
+            if (spending.getSpendingId().equalsIgnoreCase(spendingId)) {
+                System.out.println("Enter spending name: ");
+                spending.setSpendingName(scanner.nextLine());
+                System.out.println("Enter date of Spending: ");
+                spending.setDateOfSpending(scanner.nextLine());
+                System.out.println("Enter money spending: ");
+                spending.setSpendingMoney(Integer.parseInt(scanner.nextLine()));
+                System.out.println("Enter note spending: ");
+                spending.setNoteSpending(scanner.nextLine());
+                return spending;
+            }
+        }
+        return null;
+    }
+
     public void managementSpending() {
         int choise = this.chooseMenu();
         switch (choise) {
@@ -80,10 +101,39 @@ public class SpendingManagement {
                 this.spendingController.createSpending(spending);
                 System.out.println("Create done");
                 break;
+            case 3:
+                String spendingIdDelete = this.inputSpendingId();
+                if (this.checkSpendingId(spendingIdDelete)) {
+                    this.spendingController.removeSpending(spendingIdDelete);
+                    System.out.println("Remove done");
+                } else {
+                    System.out.println("Spending ID already exists");
+                }
+                break;
+            case 4:
+                String spendingIdUpdate = this.inputSpendingId();
+                if (this.updateSpendingView(spendingIdUpdate) == null) {
+                    System.out.println("Spending ID already exists");
+                } else {
+                    this.spendingController.findSpendingId(spendingIdUpdate);
+                }
+                break;
+            case 5:
+                String spendingIdFind = this.inputSpendingId();
+                if (this.checkSpendingId(spendingIdFind)) {
+                    System.out.println(this.spendingController.findSpendingId(spendingIdFind));
+                } else {
+                    System.out.println("Spending ID already exists");
+                }
+                break;
+            case 6:
+                System.out.println("Enter name spending: ");
+                String spendingName = scanner.nextLine();
+                System.out.println(this.spendingController.findSpendingName(spendingName));
+                break;
             case 7:
                 System.exit(7);
                 break;
-
         }
         this.managementSpending();
     }
