@@ -1,10 +1,10 @@
-package bai16_IO_text_file.bai_tap.bt1_CopyFileText;
+package bai16_IO_text_file.bai_tap.bt2_ReadFile;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileCopy {
+public class FileRead {
     public List<String> readFile(String filePath) {
         BufferedReader bufferedReader = null;
         FileReader fileReader = null;
@@ -37,35 +37,4 @@ public class FileCopy {
             }
         }
     }
-
-    public void writeFile(String filePath, List<String> data) {
-        FileWriter fileWriter = null;
-        BufferedWriter bufferedWriter = null;
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            fileWriter = new FileWriter(file);
-            bufferedWriter = new BufferedWriter(fileWriter);
-            for (String str : data) {
-                bufferedWriter.write(str);
-                bufferedWriter.newLine();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (bufferedWriter != null) {
-                    bufferedWriter.close();
-                }
-                if (fileWriter != null) {
-                    fileWriter.close();
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
 }
