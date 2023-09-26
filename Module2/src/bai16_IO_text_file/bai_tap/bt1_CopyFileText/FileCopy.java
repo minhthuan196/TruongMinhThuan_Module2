@@ -43,9 +43,6 @@ public class FileCopy {
         BufferedWriter bufferedWriter = null;
         try {
             File file = new File(filePath);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
             fileWriter = new FileWriter(file);
             bufferedWriter = new BufferedWriter(fileWriter);
             for (String str : data) {
