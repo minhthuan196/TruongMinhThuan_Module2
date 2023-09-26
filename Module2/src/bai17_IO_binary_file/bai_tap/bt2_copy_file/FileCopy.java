@@ -35,26 +35,8 @@ public class FileCopy {
         }
     }
 
-    public static int countByte(File source) {
-        int count = 0;
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(source);
-            while (inputStream.read() != -1) {
-                count++;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return count;
+    public static long countByte(File source) {
+        return source.length();
     }
 
     public static void main(String[] args) {
