@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ProductManagement {
     private final ProductController productController = new ProductController();
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void showMenu() {
         System.out.println("========MENU========");
