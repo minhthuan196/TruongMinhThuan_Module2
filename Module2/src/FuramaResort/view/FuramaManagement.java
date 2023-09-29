@@ -78,31 +78,15 @@ public class FuramaManagement {
                 this.displayMainMenu();
                 System.out.println("Choose option in Menu:");
                 chooseOption = Integer.parseInt(scanner.nextLine());
-                this.checkChooseOption1To6(chooseOption);
-                return chooseOption;
+                if (chooseOption <= 0 || chooseOption > 6) {
+                    System.out.println("Enter number in Menu. Enter again!!!!");
+                } else {
+                    return chooseOption;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Enter number in Menu. Enter again!!!!");
             }
         } while (true);
-
-    }
-
-    public void checkChooseOption1To6(int chooseOption) {
-        if (chooseOption <= 0 || chooseOption > 6) {
-            throw new NumberFormatException();
-        }
-    }
-
-    public void checkChooseOption1To5(int chooseOption) {
-        if (chooseOption <= 0 || chooseOption > 5) {
-            throw new NumberFormatException();
-        }
-    }
-
-    public void checkChooseOption1To3(int chooseOption) {
-        if (chooseOption <= 0 || chooseOption > 3) {
-            throw new NumberFormatException();
-        }
     }
 
     public int chooseMenuEmployee() {
@@ -112,8 +96,11 @@ public class FuramaManagement {
                 this.displayEmployee();
                 System.out.println("Choose option in Menu Employee:");
                 chooseOptionEmployee = Integer.parseInt(scanner.nextLine());
-                checkChooseOption1To6(chooseOptionEmployee);
-                return chooseOptionEmployee;
+                if (chooseOptionEmployee <= 0 || chooseOptionEmployee > 6) {
+                    System.out.println("Enter number in Menu Employee. Enter again!!!!");
+                } else {
+                    return chooseOptionEmployee;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Enter number in Menu Employee. Enter again!!!!");
             }
@@ -127,8 +114,11 @@ public class FuramaManagement {
                 this.displayCustomer();
                 System.out.println("Choose option in Menu Customer:");
                 chooseMenuEmployee = Integer.parseInt(scanner.nextLine());
-                checkChooseOption1To6(chooseMenuEmployee);
-                return chooseMenuEmployee;
+                if (chooseMenuEmployee <= 0 || chooseMenuEmployee > 6) {
+                    System.out.println("Enter number in Menu Customer. Enter again!!!!");
+                } else {
+                    return chooseMenuEmployee;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Enter number in Menu Customer. Enter again!!!!");
             }
@@ -142,8 +132,11 @@ public class FuramaManagement {
                 this.displayFacility();
                 System.out.println("Choose option in Menu Facility:");
                 chooseMenuFacility = Integer.parseInt(scanner.nextLine());
-                checkChooseOption1To5(chooseMenuFacility);
-                return chooseMenuFacility;
+                if (chooseMenuFacility <= 0 || chooseMenuFacility > 5) {
+                    System.out.println("Enter number in Menu Facility. Enter again!!!!");
+                } else {
+                    return chooseMenuFacility;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Enter number in Menu Facility. Enter again!!!!");
             }
@@ -157,8 +150,11 @@ public class FuramaManagement {
                 this.displayBooking();
                 System.out.println("Choose option in Menu Booking:");
                 chooseMenuBooking = Integer.parseInt(scanner.nextLine());
-                checkChooseOption1To6(chooseMenuBooking);
-                return chooseMenuBooking;
+                if (chooseMenuBooking <= 0 || chooseMenuBooking > 6) {
+                    System.out.println("Enter number in Menu Booking. Enter again!!!!");
+                } else {
+                    return chooseMenuBooking;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Enter number in Menu Booking. Enter again!!!!");
             }
@@ -172,8 +168,11 @@ public class FuramaManagement {
                 this.displayPromotion();
                 System.out.println("Choose option in Menu Promotion:");
                 chooseMenuPromotion = Integer.parseInt(scanner.nextLine());
-                checkChooseOption1To3(chooseMenuPromotion);
-                return chooseMenuPromotion;
+                if (chooseMenuPromotion <= 0 || chooseMenuPromotion > 3) {
+                    System.out.println("Enter number in Menu Promotion. Enter again!!!!");
+                } else {
+                    return chooseMenuPromotion;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Enter number in Menu Promotion. Enter again!!!!");
             }
@@ -232,7 +231,7 @@ public class FuramaManagement {
         employee.setName(name);
         String dateOfBirth = inputDateOfBirthEmployee();
         employee.setDateOfBirth(dateOfBirth);
-        System.out.println("Enter gender: ");
+        System.out.println("Enter gender (Male/Female): ");
         employee.setGender(scanner.nextLine());
         String identityCard = inputIdentityCardEmployee();
         employee.setIdentityCard(identityCard);
@@ -469,6 +468,4 @@ public class FuramaManagement {
         }
         this.managementFurama();
     }
-
-
 }
