@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 public class FuramaManagement {
@@ -527,6 +528,20 @@ public class FuramaManagement {
         return period.getYears() >= 18;
     }
 
+    private String inputNameNeedFindEmployee() {
+        String name;
+        do {
+            System.out.println("Enter name need find: ");
+            name = scanner.nextLine();
+            if (name.equalsIgnoreCase("")) {
+                System.out.println("Not be empty. Enter again!!!");
+            } else {
+                break;
+            }
+        } while (true);
+        return name;
+    }
+
     public void managementEmployee() {
         int chooseMenuEmployee = this.chooseMenuEmployee();
         switch (chooseMenuEmployee) {
@@ -556,9 +571,13 @@ public class FuramaManagement {
                 }
                 break;
             case 5:
-                System.out.println("Enter name need find: ");
-                String name = scanner.nextLine();
-                System.out.println(this.employeeController.findEmployee(name));
+                String name = inputNameNeedFindEmployee();
+                List<Employee> employees = this.employeeController.findEmployee(name);
+                if (employees.size() == 0) {
+                    System.out.println("Name not found!!!");
+                } else {
+                    System.out.println(employees);
+                }
                 break;
             case 6:
                 this.managementFurama();
@@ -566,6 +585,7 @@ public class FuramaManagement {
         }
         this.managementEmployee();
     }
+
 
     public void managementCustomer() {
         int chooseMenuCustomer = this.chooseMenuCustomer();
