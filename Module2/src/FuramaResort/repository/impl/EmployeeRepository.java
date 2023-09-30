@@ -27,7 +27,7 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
     public void updatePerson(Employee employee) {
         List<Employee> employees = readEmployeeFromFile();
         for (Employee employee1 : employees) {
-            if (employee1.getIdEmployee() == employee.getIdEmployee()) {
+            if (employee1.getIdEmployee().equalsIgnoreCase(employee.getIdEmployee())){
                 employee1.setName(employee.getName());
                 employee1.setDateOfBirth(employee.getDateOfBirth());
                 employee1.setGender(employee.getGender());

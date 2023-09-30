@@ -14,9 +14,10 @@ public class FuramaManagement {
     private final Scanner scanner = new Scanner(System.in);
     private final EmployeeController employeeController = new EmployeeController();
     private static final String ID_EMPLOYEE = "^NV-[0-9]{4}$";
-    private static final String NAME_EMPLOYEE = "^[A-Z].*";
+    private static final String NAME_EMPLOYEE = "^[A-Z][a-z]{0,10}$";
     private static final String IDENTITY_CARD_EMPLOYEE = "^([0-9]{9}|[0-9]{12})$";
     private static final String PHONE_NUMBER_EMPLOYEE = "^0[0-9]{9}$";
+    private static final String EMAIL_EMPLOYEE = "(^.*@gmail.com$)|(^.*@outlook.com$)";
 
     private final RegexUtil regexUtil = new RegexUtil();
 
@@ -191,12 +192,12 @@ public class FuramaManagement {
     public String inputIdEmployee() {
         String idEmployee;
         do {
-            System.out.println("Enter ID Employee: ");
+            System.out.println("Enter ID Employee (NV-XXXX): ");
             idEmployee = scanner.nextLine();
             if (regexUtil.validateString(idEmployee, ID_EMPLOYEE)) {
                 return idEmployee;
             } else {
-                System.out.println("ID format is not correct");
+                System.out.println("ID format is not correct!!!");
             }
         } while (true);
     }
@@ -215,43 +216,225 @@ public class FuramaManagement {
         return employee;
     }
 
-    public Employee createEmployeeEdit() {
+    public Employee createEmployeeEdit1() {
         Employee employee = new Employee();
         String idEmployee = inputIdEmployee();
-        if (checkIdEmployee(idEmployee)) {
-            employee.setIdEmployee(idEmployee);
-            inputEmployee(employee);
-            return employee;
+        boolean flag = false;
+        for (Employee employeeEdit : this.employeeController.showEmployee()) {
+            if (employeeEdit.getIdEmployee().equalsIgnoreCase(idEmployee)) {
+                employee = employeeEdit;
+                flag = true;
+                break;
+            }
         }
-        return null;
+        if (flag) {
+            do {
+                int choiceEditAttribute;
+                do {
+                    try {
+                        System.out.println("Choose information Employee need update: ");
+                        System.out.println("1.Name");
+                        System.out.println("2.Date of birth");
+                        System.out.println("3.Gender");
+                        System.out.println("4.Identity Card");
+                        System.out.println("5.Phone Number");
+                        System.out.println("6.Email");
+                        System.out.println("7.Academic Level");
+                        System.out.println("8.Position");
+                        System.out.println("9.Salary");
+                        System.out.println("10.Done edit");
+                        choiceEditAttribute = Integer.parseInt(scanner.nextLine());
+                        if (choiceEditAttribute <= 0 || choiceEditAttribute > 10) {
+                            System.out.println("Not in Menu.Choose again!!");
+                        } else {
+                            break;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Not in Menu.Choose again!!!");
+                    }
+                } while (true);
+                switch (choiceEditAttribute) {
+                    case 1:
+                        String name = inputName();
+                        employee.setName(name);
+                        break;
+                    case 2:
+                        String dateOfBirth = inputDateOfBirth();
+                        employee.setDateOfBirth(dateOfBirth);
+                        break;
+                    case 3:
+                        String gender = inputGender();
+                        employee.setGender(gender);
+                        break;
+                    case 4:
+                        String identityCard = inputIdentityCard();
+                        employee.setIdentityCard(identityCard);
+                        break;
+                    case 5:
+                        String phoneNumber = inputPhoneNumber();
+                        employee.setPhoneNumber(phoneNumber);
+                        break;
+                    case 6:
+                        String mail = inputEmail();
+                        employee.setMail(mail);
+                        break;
+                    case 7:
+                        String academicLevelEmployee = inputAcademicLevelEmployee();
+                        employee.setAcademicLevelEmployee(academicLevelEmployee);
+                        break;
+                    case 8:
+                        String positionEmployee = inputPositionEmployee();
+                        employee.setPositionEmployee(positionEmployee);
+                        break;
+                    case 9:
+                        int salary = inputSalaryEmployee();
+                        employee.setSalary(salary);
+                        break;
+                    case 10:
+                        return employee;
+                }
+            } while (true);
+        } else {
+            return null;
+        }
     }
 
     private void inputEmployee(Employee employee) {
-        String name = inputNameEmployee();
+        String name = inputName();
         employee.setName(name);
-        String dateOfBirth = inputDateOfBirthEmployee();
+        String dateOfBirth = inputDateOfBirth();
         employee.setDateOfBirth(dateOfBirth);
-        System.out.println("Enter gender (Male/Female): ");
-        employee.setGender(scanner.nextLine());
-        String identityCard = inputIdentityCardEmployee();
+        String gender = inputGender();
+        employee.setGender(gender);
+        String identityCard = inputIdentityCard();
         employee.setIdentityCard(identityCard);
-        String phoneNumber = inputPhoneNumberEmployee();
+        String phoneNumber = inputPhoneNumber();
         employee.setPhoneNumber(phoneNumber);
-        System.out.println("Enter mail");
-        employee.setMail(scanner.nextLine());
-        System.out.println("Enter academic Level Employee");
-        employee.setAcademicLevelEmployee(scanner.nextLine());
-        System.out.println("Enter position Employee");
-        employee.setPositionEmployee(scanner.nextLine());
+        String mail = inputEmail();
+        employee.setMail(mail);
+        String academicLevelEmployee = inputAcademicLevelEmployee();
+        employee.setAcademicLevelEmployee(academicLevelEmployee);
+        String positionEmployee = inputPositionEmployee();
+        employee.setPositionEmployee(positionEmployee);
         int salary = inputSalaryEmployee();
         employee.setSalary(salary);
     }
+
+    private String inputPositionEmployee() {
+        int choicePositionEmployee;
+        do {
+            try {
+                System.out.println("Choose position Employee (Receptionist/Serve/Expert/Supervisor/Manager/Principal): ");
+                System.out.println("1.Receptionist");
+                System.out.println("2.Serve");
+                System.out.println("3.Expert");
+                System.out.println("4.Supervisor");
+                System.out.println("5.Manager");
+                System.out.println("6.Principal");
+                choicePositionEmployee = Integer.parseInt(scanner.nextLine());
+                if (choicePositionEmployee <= 0 || choicePositionEmployee > 6) {
+                    System.out.println("Not in Menu.Choose again!!");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not in Menu.Choose again!!!");
+            }
+
+        } while (true);
+        if (choicePositionEmployee == 1) {
+            return "Receptionist";
+        } else if (choicePositionEmployee == 2) {
+            return "Serve";
+        } else if (choicePositionEmployee == 3) {
+            return "Expert";
+        } else if (choicePositionEmployee == 4) {
+            return "Supervisor";
+        } else if (choicePositionEmployee == 5) {
+            return "Manager";
+        } else {
+            return "Principal";
+        }
+    }
+
+    private String inputAcademicLevelEmployee() {
+        int choiceAcademicLevelEmployee;
+        do {
+            try {
+                System.out.println("Choose academic Level Employee (Intermediate/College/University/After university): ");
+                System.out.println("1.Intermediate");
+                System.out.println("2.College");
+                System.out.println("3.University");
+                System.out.println("4.After University");
+                choiceAcademicLevelEmployee = Integer.parseInt(scanner.nextLine());
+                if (choiceAcademicLevelEmployee <= 0 || choiceAcademicLevelEmployee > 4) {
+                    System.out.println("Not in Menu.Choose again!!");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not in Menu.Choose again!!!");
+            }
+
+        } while (true);
+        if (choiceAcademicLevelEmployee == 1) {
+            return "Intermediate";
+        } else if (choiceAcademicLevelEmployee == 2) {
+            return "College";
+        } else if (choiceAcademicLevelEmployee == 3) {
+            return "University";
+        } else {
+            return "After University";
+        }
+    }
+
+    private String inputEmail() {
+        String mail;
+        do {
+            System.out.println("Enter mail(x@gmail.com/x@outlook.com):");
+            mail = scanner.nextLine();
+            if (this.regexUtil.validateString(mail, EMAIL_EMPLOYEE)) {
+                break;
+            } else {
+                System.out.println("Email is not in correct format.Enter again!!!");
+            }
+        } while (true);
+        return mail;
+    }
+
+    private String inputGender() {
+        int choiceGender;
+        do {
+            try {
+                System.out.println("Choose gender (Male/Female/Other): ");
+                System.out.println("1.Male");
+                System.out.println("2.Female");
+                System.out.println("3.Other");
+                choiceGender = Integer.parseInt(scanner.nextLine());
+                if (choiceGender <= 0 || choiceGender > 3) {
+                    System.out.println("Not in Menu.Choose again!!");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not in Menu.Choose again!!!");
+            }
+        } while (true);
+        if (choiceGender == 1) {
+            return "Male";
+        } else if (choiceGender == 2) {
+            return "Female";
+        } else {
+            return "Other";
+        }
+    }
+
 
     private int inputSalaryEmployee() {
         int salary;
         do {
             try {
-                System.out.println("Enter salary");
+                System.out.println("Enter salary (>0):");
                 salary = Integer.parseInt(scanner.nextLine());
                 if (salary <= 0) {
                     System.out.println("Salary >0.Enter again!!!!");
@@ -265,10 +448,10 @@ public class FuramaManagement {
         return salary;
     }
 
-    private String inputPhoneNumberEmployee() {
+    private String inputPhoneNumber() {
         String phoneNumber;
         do {
-            System.out.println("Enter phone Number");
+            System.out.println("Enter phone Number (0XXXXXXXXX):");
             phoneNumber = scanner.nextLine();
             if (regexUtil.validateString(phoneNumber, PHONE_NUMBER_EMPLOYEE)) {
                 break;
@@ -279,10 +462,10 @@ public class FuramaManagement {
         return phoneNumber;
     }
 
-    private String inputIdentityCardEmployee() {
+    private String inputIdentityCard() {
         String identityCard;
         do {
-            System.out.println("Enter identity Card");
+            System.out.println("Enter identity Card (9 - 12 number:)");
             identityCard = scanner.nextLine();
             if (regexUtil.validateString(identityCard, IDENTITY_CARD_EMPLOYEE)) {
                 break;
@@ -293,10 +476,10 @@ public class FuramaManagement {
         return identityCard;
     }
 
-    private String inputDateOfBirthEmployee() {
+    private String inputDateOfBirth() {
         String dateOfBirth;
         do {
-            System.out.println("Enter date of birth: ");
+            System.out.println("Enter date of birth (yy/MM/yyyy): ");
             dateOfBirth = scanner.nextLine();
             try {
                 if (checkDateOfBirth(dateOfBirth)) {
@@ -311,12 +494,12 @@ public class FuramaManagement {
         return dateOfBirth;
     }
 
-    private String inputNameEmployee() {
+    private String inputName() {
         String name;
         do {
-            System.out.println("Enter name Employee: ");
+            System.out.println("Enter name Employee (Nguyen Van A): ");
             name = scanner.nextLine();
-            if (checkNameEmployee(name)) {
+            if (checkName(name)) {
                 break;
             } else {
                 System.out.println("Enter name again!!!");
@@ -325,7 +508,7 @@ public class FuramaManagement {
         return name;
     }
 
-    public boolean checkNameEmployee(String str) {
+    public boolean checkName(String str) {
         str = str.trim();
         String[] arrayStr = str.split(" ");
         for (String s : arrayStr) {
@@ -355,10 +538,11 @@ public class FuramaManagement {
                 System.out.println("Create employee done");
                 break;
             case 3:
-                if (this.createEmployeeEdit() == null) {
-                    System.out.println("Id not find");
+                Employee employeeEdit = this.createEmployeeEdit1();
+                if (employeeEdit == null) {
+                    System.out.println("Id not find need update");
                 } else {
-                    this.employeeController.updateEmployee(createEmployeeEdit());
+                    this.employeeController.updateEmployee(employeeEdit);
                     System.out.println("Update employee done");
                 }
                 break;
@@ -368,7 +552,7 @@ public class FuramaManagement {
                     this.employeeController.removeEmployee(idEmployee);
                     System.out.println("Remove employee done");
                 } else {
-                    System.out.println("Id not find");
+                    System.out.println("Id not find need remove");
                 }
                 break;
             case 5:

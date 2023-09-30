@@ -1,7 +1,5 @@
 package FuramaResort.repository;
 
-import com.sun.org.omg.CORBA.Repository;
-
 import java.util.List;
 
 public interface IPersonRepository<O>  {
