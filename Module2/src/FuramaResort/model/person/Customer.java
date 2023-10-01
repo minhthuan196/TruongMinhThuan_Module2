@@ -1,32 +1,25 @@
 package FuramaResort.model.person;
 
 public class Customer extends Person {
-    private int idCustomer;
+    private String idCustomer;
     private String customerType;
     private String address;
 
-    public Customer(String name, String dateOfBirth, String gender, String identityCard, String phoneNumber, String mail, int idCustomer, String customerType, String address) {
+    public Customer(String name, String dateOfBirth, String gender, String identityCard, String phoneNumber, String mail, String idCustomer, String customerType, String address) {
         super(name, dateOfBirth, gender, identityCard, phoneNumber, mail);
         this.idCustomer = idCustomer;
         this.customerType = customerType;
         this.address = address;
     }
-
-    public Customer(int idCustomer, String customerType, String address) {
-        this.idCustomer = idCustomer;
-        this.customerType = customerType;
-        this.address = address;
-    }
-
     public Customer() {
 
     }
 
-    public int getIdCustomer() {
+    public String getIdCustomer() {
         return idCustomer;
     }
 
-    public void setIdCustomer(int idCustomer) {
+    public void setIdCustomer(String idCustomer) {
         this.idCustomer = idCustomer;
     }
 

@@ -1,7 +1,10 @@
 package FuramaResort.view;
 
+import FuramaResort.controller.CustomerController;
 import FuramaResort.controller.EmployeeController;
+import FuramaResort.model.person.Customer;
 import FuramaResort.model.person.Employee;
+import FuramaResort.model.person.Person;
 import FuramaResort.utils.RegexUtil;
 
 import java.time.LocalDate;
@@ -14,7 +17,9 @@ import java.util.Scanner;
 public class FuramaManagement {
     private final Scanner scanner = new Scanner(System.in);
     private final EmployeeController employeeController = new EmployeeController();
+    private final CustomerController customerController = new CustomerController();
     private static final String ID_EMPLOYEE = "^NV-[0-9]{4}$";
+    private static final String ID_CUSTOMER = "^KH-[0-9]{4}$";
     private static final String NAME_EMPLOYEE = "^[A-Z][a-z]{0,10}$";
     private static final String IDENTITY_CARD_EMPLOYEE = "^([0-9]{9}|[0-9]{12})$";
     private static final String PHONE_NUMBER_EMPLOYEE = "^0[0-9]{9}$";
@@ -217,7 +222,7 @@ public class FuramaManagement {
         return employee;
     }
 
-    public Employee createEmployeeEdit1() {
+    public Employee createEmployeeEdit() {
         Employee employee = new Employee();
         String idEmployee = inputIdEmployee();
         boolean flag = false;
@@ -301,24 +306,28 @@ public class FuramaManagement {
     }
 
     private void inputEmployee(Employee employee) {
-        String name = inputName();
-        employee.setName(name);
-        String dateOfBirth = inputDateOfBirth();
-        employee.setDateOfBirth(dateOfBirth);
-        String gender = inputGender();
-        employee.setGender(gender);
-        String identityCard = inputIdentityCard();
-        employee.setIdentityCard(identityCard);
-        String phoneNumber = inputPhoneNumber();
-        employee.setPhoneNumber(phoneNumber);
-        String mail = inputEmail();
-        employee.setMail(mail);
+        inputInformationPerson(employee);
         String academicLevelEmployee = inputAcademicLevelEmployee();
         employee.setAcademicLevelEmployee(academicLevelEmployee);
         String positionEmployee = inputPositionEmployee();
         employee.setPositionEmployee(positionEmployee);
         int salary = inputSalaryEmployee();
         employee.setSalary(salary);
+    }
+
+    private void inputInformationPerson(Person person) {
+        String name = inputName();
+        person.setName(name);
+        String dateOfBirth = inputDateOfBirth();
+        person.setDateOfBirth(dateOfBirth);
+        String gender = inputGender();
+        person.setGender(gender);
+        String identityCard = inputIdentityCard();
+        person.setIdentityCard(identityCard);
+        String phoneNumber = inputPhoneNumber();
+        person.setPhoneNumber(phoneNumber);
+        String mail = inputEmail();
+        person.setMail(mail);
     }
 
     private String inputPositionEmployee() {
@@ -498,7 +507,7 @@ public class FuramaManagement {
     private String inputName() {
         String name;
         do {
-            System.out.println("Enter name Employee (Nguyen Van A): ");
+            System.out.println("Enter name (Nguyen Van A): ");
             name = scanner.nextLine();
             if (checkName(name)) {
                 break;
@@ -528,7 +537,7 @@ public class FuramaManagement {
         return period.getYears() >= 18;
     }
 
-    private String inputNameNeedFindEmployee() {
+    private String inputNameNeedFind() {
         String name;
         do {
             System.out.println("Enter name need find: ");
@@ -553,7 +562,7 @@ public class FuramaManagement {
                 System.out.println("Create employee done");
                 break;
             case 3:
-                Employee employeeEdit = this.createEmployeeEdit1();
+                Employee employeeEdit = this.createEmployeeEdit();
                 if (employeeEdit == null) {
                     System.out.println("Id not find need update");
                 } else {
@@ -571,7 +580,7 @@ public class FuramaManagement {
                 }
                 break;
             case 5:
-                String name = inputNameNeedFindEmployee();
+                String name = inputNameNeedFind();
                 List<Employee> employees = this.employeeController.findEmployee(name);
                 if (employees.size() == 0) {
                     System.out.println("Name not found!!!");
@@ -586,15 +595,213 @@ public class FuramaManagement {
         this.managementEmployee();
     }
 
+    private Customer createCustomer() {
+        Customer customer = new Customer();
+        String idCustomer;
+        do {
+            idCustomer = inputIdCustomer();
+            if (checkIdCustomer(idCustomer)) {
+                System.out.println("id already exists");
+            }
+        } while (checkIdCustomer(idCustomer));
+        customer.setIdCustomer(idCustomer);
+        inputCustomer(customer);
+        return customer;
+    }
+
+    private void inputCustomer(Customer customer) {
+        this.inputInformationPerson(customer);
+        String customerType = inputCustomerType();
+        customer.setCustomerType(customerType);
+        String address = inputAddressCustomer();
+        customer.setAddress(address);
+    }
+
+    private String inputAddressCustomer() {
+        String address;
+        do {
+            System.out.println("Enter address customer: ");
+            address = scanner.nextLine();
+            if (address.equalsIgnoreCase("")) {
+                System.out.println("Not be empty. Enter again!!!");
+            } else {
+                break;
+            }
+        } while (true);
+        return address;
+    }
+
+    private String inputCustomerType() {
+        int choiceCustomerType;
+        do {
+            try {
+                System.out.println("Choose customer type (Diamond/Platinum/Gold/Silver/Member): ");
+                System.out.println("1.Diamond");
+                System.out.println("2.Platinum");
+                System.out.println("3.Gold");
+                System.out.println("4.Silver");
+                System.out.println("5.Member");
+                choiceCustomerType = Integer.parseInt(scanner.nextLine());
+                if (choiceCustomerType <= 0 || choiceCustomerType > 5) {
+                    System.out.println("Not in Menu.Choose again!!");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not in Menu.Choose again!!!");
+            }
+
+        } while (true);
+        if (choiceCustomerType == 1) {
+            return "Diamond";
+        } else if (choiceCustomerType == 2) {
+            return "Platinum";
+        } else if (choiceCustomerType == 3) {
+            return "Gold";
+        } else if (choiceCustomerType == 4) {
+            return "Silver";
+        } else {
+            return "Member";
+        }
+    }
+
+    public String inputIdCustomer() {
+        String idCustomer;
+        do {
+            System.out.println("Enter ID Customer (KH-YYYY): ");
+            idCustomer = scanner.nextLine();
+            if (regexUtil.validateString(idCustomer, ID_CUSTOMER)) {
+                return idCustomer;
+            } else {
+                System.out.println("ID format is not correct!!!");
+            }
+        } while (true);
+    }
+
+    public boolean checkIdCustomer(String idCustomer) {
+        for (Customer customer : this.customerController.showCustomer()) {
+            if (customer.getIdCustomer().equalsIgnoreCase(idCustomer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Customer createCustomerEdit() {
+        Customer customer = new Customer();
+        String idCustomer = inputIdCustomer();
+        boolean flagCustomer = false;
+        for (Customer customerEdit : this.customerController.showCustomer()) {
+            if (customerEdit.getIdCustomer().equalsIgnoreCase(idCustomer)) {
+                customer = customerEdit;
+                flagCustomer = true;
+                break;
+            }
+        }
+        if (flagCustomer) {
+            do {
+                int choiceEditAttribute;
+                do {
+                    try {
+                        System.out.println("Choose information Customer need update: ");
+                        System.out.println("1.Name");
+                        System.out.println("2.Date of birth");
+                        System.out.println("3.Gender");
+                        System.out.println("4.Identity Card");
+                        System.out.println("5.Phone Number");
+                        System.out.println("6.Email");
+                        System.out.println("7.Customer type");
+                        System.out.println("8.Address");
+                        System.out.println("9.Done edit");
+                        choiceEditAttribute = Integer.parseInt(scanner.nextLine());
+                        if (choiceEditAttribute <= 0 || choiceEditAttribute > 9) {
+                            System.out.println("Not in Menu.Choose again!!");
+                        } else {
+                            break;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Not in Menu.Choose again!!!");
+                    }
+                } while (true);
+                switch (choiceEditAttribute) {
+                    case 1:
+                        String name = inputName();
+                        customer.setName(name);
+                        break;
+                    case 2:
+                        String dateOfBirth = inputDateOfBirth();
+                        customer.setDateOfBirth(dateOfBirth);
+                        break;
+                    case 3:
+                        String gender = inputGender();
+                        customer.setGender(gender);
+                        break;
+                    case 4:
+                        String identityCard = inputIdentityCard();
+                        customer.setIdentityCard(identityCard);
+                        break;
+                    case 5:
+                        String phoneNumber = inputPhoneNumber();
+                        customer.setPhoneNumber(phoneNumber);
+                        break;
+                    case 6:
+                        String mail = inputEmail();
+                        customer.setMail(mail);
+                        break;
+                    case 7:
+                        String customerType = inputCustomerType();
+                        customer.setCustomerType(customerType);
+                        break;
+                    case 8:
+                        String address = inputAddressCustomer();
+                        customer.setAddress(address);
+                        break;
+                    case 9:
+                        return customer;
+                }
+            } while (true);
+        } else {
+            return null;
+        }
+    }
+
 
     public void managementCustomer() {
         int chooseMenuCustomer = this.chooseMenuCustomer();
         switch (chooseMenuCustomer) {
             case 1:
+                System.out.println(this.customerController.showCustomer());
+                break;
             case 2:
+                this.customerController.createCustomer(createCustomer());
+                System.out.println("Create customer done");
+                break;
             case 3:
+                Customer customerEdit = this.createCustomerEdit();
+                if (customerEdit == null) {
+                    System.out.println("Id not find need update");
+                } else {
+                    this.customerController.updateCustomer(customerEdit);
+                    System.out.println("Update customer done");
+                }
+                break;
             case 4:
+                String idCustomer = this.inputIdCustomer();
+                if (checkIdCustomer(idCustomer)) {
+                    this.customerController.removeCustomer(idCustomer);
+                    System.out.println("Remove customer done");
+                } else {
+                    System.out.println("Id not find need remove");
+                }
+                break;
             case 5:
+                String name = inputNameNeedFind();
+                List<Customer> customers = this.customerController.findCustomer(name);
+                if (customers.size() == 0) {
+                    System.out.println("Name not found!!!");
+                } else {
+                    System.out.println(customers);
+                }
                 break;
             case 6:
                 this.managementFurama();
@@ -602,6 +809,7 @@ public class FuramaManagement {
         }
         this.managementCustomer();
     }
+
 
     public void managementFacility() {
         int chooseMenuFacility = this.chooseMenuFacility();

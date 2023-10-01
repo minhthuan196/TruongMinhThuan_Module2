@@ -2,7 +2,7 @@ package FuramaResort.repository;
 
 import java.util.List;
 
-public interface IPersonRepository<O>  {
+public interface IPersonRepository<O> {
     List<O> showPerson();
 
     void createPerson(O o);
@@ -11,6 +11,6 @@ public interface IPersonRepository<O>  {
 
     void removePerson(String id);
 
-   List<O> findPerson(String name);
+    List<O> findPerson(String name);
 
 }

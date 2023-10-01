@@ -15,13 +15,6 @@ public class Employee extends Person {
         this.salary = salary;
     }
 
-    public Employee(String idEmployee, String academicLevelEmployee, String positionEmployee, int salary) {
-        this.idEmployee = idEmployee;
-        this.academicLevelEmployee = academicLevelEmployee;
-        this.positionEmployee = positionEmployee;
-        this.salary = salary;
-    }
-
     public Employee() {
 
     }
