@@ -2,6 +2,11 @@ package FuramaResort.view;
 
 import FuramaResort.controller.CustomerController;
 import FuramaResort.controller.EmployeeController;
+import FuramaResort.controller.FacilityController;
+import FuramaResort.model.facility.Facility;
+import FuramaResort.model.facility.House;
+import FuramaResort.model.facility.Room;
+import FuramaResort.model.facility.Villa;
 import FuramaResort.model.person.Customer;
 import FuramaResort.model.person.Employee;
 import FuramaResort.model.person.Person;
@@ -11,6 +16,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,14 +24,19 @@ public class FuramaManagement {
     private final Scanner scanner = new Scanner(System.in);
     private final EmployeeController employeeController = new EmployeeController();
     private final CustomerController customerController = new CustomerController();
+    private final FacilityController facilityController = new FacilityController();
     private static final String ID_EMPLOYEE = "^NV-[0-9]{4}$";
     private static final String ID_CUSTOMER = "^KH-[0-9]{4}$";
+    private static final String ID_VILLA = "^SVVL-[0-9]{4}$";
+    private static final String ID_HOUSE = "^SVHO-[0-9]{4}$";
+    private static final String ID_ROOM = "^SVRO-[0-9]{4}$";
     private static final String NAME_EMPLOYEE = "^[A-Z][a-z]{0,10}$";
     private static final String IDENTITY_CARD_EMPLOYEE = "^([0-9]{9}|[0-9]{12})$";
     private static final String PHONE_NUMBER_EMPLOYEE = "^0[0-9]{9}$";
     private static final String EMAIL_EMPLOYEE = "(^.*@gmail.com$)|(^.*@outlook.com$)";
 
     private final RegexUtil regexUtil = new RegexUtil();
+
 
     public void displayMainMenu() {
         System.out.println("==========MENU==========");
@@ -198,7 +209,7 @@ public class FuramaManagement {
     public String inputIdEmployee() {
         String idEmployee;
         do {
-            System.out.println("Enter ID Employee (NV-XXXX): ");
+            System.out.println("Enter ID Employee (NV-1234): ");
             idEmployee = scanner.nextLine();
             if (regexUtil.validateString(idEmployee, ID_EMPLOYEE)) {
                 return idEmployee;
@@ -208,7 +219,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public Employee createEmployee() {
+    public Employee createEmployeeView() {
         Employee employee = new Employee();
         String idEmployee;
         do {
@@ -261,40 +272,31 @@ public class FuramaManagement {
                 } while (true);
                 switch (choiceEditAttribute) {
                     case 1:
-                        String name = inputName();
-                        employee.setName(name);
+                        employee.setName(inputName());
                         break;
                     case 2:
-                        String dateOfBirth = inputDateOfBirth();
-                        employee.setDateOfBirth(dateOfBirth);
+                        employee.setDateOfBirth(inputDateOfBirth());
                         break;
                     case 3:
-                        String gender = inputGender();
-                        employee.setGender(gender);
+                        employee.setGender(inputGender());
                         break;
                     case 4:
-                        String identityCard = inputIdentityCard();
-                        employee.setIdentityCard(identityCard);
+                        employee.setIdentityCard(inputIdentityCard());
                         break;
                     case 5:
-                        String phoneNumber = inputPhoneNumber();
-                        employee.setPhoneNumber(phoneNumber);
+                        employee.setPhoneNumber(inputPhoneNumber());
                         break;
                     case 6:
-                        String mail = inputEmail();
-                        employee.setMail(mail);
+                        employee.setMail(inputEmail());
                         break;
                     case 7:
-                        String academicLevelEmployee = inputAcademicLevelEmployee();
-                        employee.setAcademicLevelEmployee(academicLevelEmployee);
+                        employee.setAcademicLevelEmployee(inputAcademicLevelEmployee());
                         break;
                     case 8:
-                        String positionEmployee = inputPositionEmployee();
-                        employee.setPositionEmployee(positionEmployee);
+                        employee.setPositionEmployee(inputPositionEmployee());
                         break;
                     case 9:
-                        int salary = inputSalaryEmployee();
-                        employee.setSalary(salary);
+                        employee.setSalary(inputSalaryEmployee());
                         break;
                     case 10:
                         return employee;
@@ -307,27 +309,18 @@ public class FuramaManagement {
 
     private void inputEmployee(Employee employee) {
         inputInformationPerson(employee);
-        String academicLevelEmployee = inputAcademicLevelEmployee();
-        employee.setAcademicLevelEmployee(academicLevelEmployee);
-        String positionEmployee = inputPositionEmployee();
-        employee.setPositionEmployee(positionEmployee);
-        int salary = inputSalaryEmployee();
-        employee.setSalary(salary);
+        employee.setAcademicLevelEmployee(inputAcademicLevelEmployee());
+        employee.setPositionEmployee(inputPositionEmployee());
+        employee.setSalary(inputSalaryEmployee());
     }
 
     private void inputInformationPerson(Person person) {
-        String name = inputName();
-        person.setName(name);
-        String dateOfBirth = inputDateOfBirth();
-        person.setDateOfBirth(dateOfBirth);
-        String gender = inputGender();
-        person.setGender(gender);
-        String identityCard = inputIdentityCard();
-        person.setIdentityCard(identityCard);
-        String phoneNumber = inputPhoneNumber();
-        person.setPhoneNumber(phoneNumber);
-        String mail = inputEmail();
-        person.setMail(mail);
+        person.setName(inputName());
+        person.setDateOfBirth(inputDateOfBirth());
+        person.setGender(inputGender());
+        person.setIdentityCard(inputIdentityCard());
+        person.setPhoneNumber(inputPhoneNumber());
+        person.setMail(inputEmail());
     }
 
     private String inputPositionEmployee() {
@@ -558,7 +551,7 @@ public class FuramaManagement {
                 System.out.println(this.employeeController.showEmployee());
                 break;
             case 2:
-                this.employeeController.createEmployee(createEmployee());
+                this.employeeController.createEmployee(createEmployeeView());
                 System.out.println("Create employee done");
                 break;
             case 3:
@@ -589,13 +582,12 @@ public class FuramaManagement {
                 }
                 break;
             case 6:
-                this.managementFurama();
-                break;
+                return;
         }
         this.managementEmployee();
     }
 
-    private Customer createCustomer() {
+    private Customer createCustomerView() {
         Customer customer = new Customer();
         String idCustomer;
         do {
@@ -668,7 +660,7 @@ public class FuramaManagement {
     public String inputIdCustomer() {
         String idCustomer;
         do {
-            System.out.println("Enter ID Customer (KH-YYYY): ");
+            System.out.println("Enter ID Customer (KH-1234): ");
             idCustomer = scanner.nextLine();
             if (regexUtil.validateString(idCustomer, ID_CUSTOMER)) {
                 return idCustomer;
@@ -725,36 +717,28 @@ public class FuramaManagement {
                 } while (true);
                 switch (choiceEditAttribute) {
                     case 1:
-                        String name = inputName();
-                        customer.setName(name);
+                        customer.setName(inputName());
                         break;
                     case 2:
-                        String dateOfBirth = inputDateOfBirth();
-                        customer.setDateOfBirth(dateOfBirth);
+                        customer.setDateOfBirth(inputDateOfBirth());
                         break;
                     case 3:
-                        String gender = inputGender();
-                        customer.setGender(gender);
+                        customer.setGender(inputGender());
                         break;
                     case 4:
-                        String identityCard = inputIdentityCard();
-                        customer.setIdentityCard(identityCard);
+                        customer.setIdentityCard(inputIdentityCard());
                         break;
                     case 5:
-                        String phoneNumber = inputPhoneNumber();
-                        customer.setPhoneNumber(phoneNumber);
+                        customer.setPhoneNumber(inputPhoneNumber());
                         break;
                     case 6:
-                        String mail = inputEmail();
-                        customer.setMail(mail);
+                        customer.setMail(inputEmail());
                         break;
                     case 7:
-                        String customerType = inputCustomerType();
-                        customer.setCustomerType(customerType);
+                        customer.setCustomerType(inputCustomerType());
                         break;
                     case 8:
-                        String address = inputAddressCustomer();
-                        customer.setAddress(address);
+                        customer.setAddress(inputAddressCustomer());
                         break;
                     case 9:
                         return customer;
@@ -773,7 +757,7 @@ public class FuramaManagement {
                 System.out.println(this.customerController.showCustomer());
                 break;
             case 2:
-                this.customerController.createCustomer(createCustomer());
+                this.customerController.createCustomer(createCustomerView());
                 System.out.println("Create customer done");
                 break;
             case 3:
@@ -804,10 +788,285 @@ public class FuramaManagement {
                 }
                 break;
             case 6:
-                this.managementFurama();
-                break;
+                return;
         }
         this.managementCustomer();
+    }
+
+    public void menuAddFacility() {
+        System.out.println("1. Add New Villa");
+        System.out.println("2. Add New House");
+        System.out.println("3. Add New Room");
+        System.out.println("4. Back to menu");
+    }
+
+    public int chooseAddFacility() {
+        int choose;
+        do {
+            try {
+                this.menuAddFacility();
+                System.out.println("Choose option in Menu Add Facility:");
+                choose = Integer.parseInt(scanner.nextLine());
+                if (choose <= 0 || choose > 4) {
+                    System.out.println("Not in Menu. Choose again!!!");
+                } else {
+                    return choose;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not in Menu. Choose again!!!");
+            }
+        } while (true);
+    }
+
+    private String inputIdServiceVilla() {
+        String idServiceVilla;
+        do {
+            System.out.println("Enter ID service Villa (SVVl-1234):");
+            idServiceVilla = scanner.nextLine();
+            if (this.regexUtil.validateString(idServiceVilla, ID_VILLA)) {
+                return idServiceVilla;
+            } else {
+                System.out.println("ID format is not correct!!!");
+            }
+        } while (true);
+    }
+
+
+    private String inputIdServiceHouse() {
+        String idServiceHouse;
+        do {
+            System.out.println("Enter ID service House (SVHO-1234):");
+            idServiceHouse = scanner.nextLine();
+            if (this.regexUtil.validateString(idServiceHouse, ID_HOUSE)) {
+                return idServiceHouse;
+            } else {
+                System.out.println("ID format is not correct!!!");
+            }
+        } while (true);
+    }
+
+    private String inputNameService() {
+        String name;
+        do {
+            System.out.println("Enter name service (Special):");
+            name = scanner.nextLine();
+            if (checkName(name)) {
+                break;
+            } else {
+                System.out.println("Name service format not correct. Enter name again!!!");
+            }
+        } while (true);
+        return name;
+    }
+
+    private double inputUsableArea() {
+        double usableArea;
+        do {
+            try {
+                System.out.println("Enter usable area (>=30m2):");
+                usableArea = Double.parseDouble(scanner.nextLine());
+                if (usableArea > 30) {
+                    return usableArea;
+                } else {
+                    System.out.println("Usable area >=30m2. Enter again!!1");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Enter a number. Enter again!!!");
+            }
+        } while (true);
+    }
+
+    private int inputRentalCosts() {
+        int rentalCosts;
+        do {
+            try {
+                System.out.println("Enter rental costs (>0): ");
+                rentalCosts = Integer.parseInt(scanner.nextLine());
+                if (rentalCosts > 0) {
+                    break;
+                } else {
+                    System.out.println("Rental costs >0. Enter again!!!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Enter a number. Enter again");
+            }
+        } while (true);
+        return rentalCosts;
+    }
+
+    private int inputMaximumPeople() {
+        int maximumPeople;
+        do {
+            try {
+                System.out.println("Enter maximum People (>0 && <20): ");
+                maximumPeople = Integer.parseInt(scanner.nextLine());
+                if (maximumPeople <= 0 || maximumPeople >= 20) {
+                    System.out.println("Maximum people (>0 &&<20). Enter again!!!");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Enter a number. Enter again!!!");
+            }
+        } while (true);
+        return maximumPeople;
+    }
+
+    private String inputRentalTypeFacility() {
+        int choiceRentalType;
+        do {
+            try {
+                System.out.println("Choose rental type (Year/Month/Date/Hours): ");
+                System.out.println("1.Year");
+                System.out.println("2.Month");
+                System.out.println("3.Date");
+                System.out.println("4.Hours");
+                choiceRentalType = Integer.parseInt(scanner.nextLine());
+                if (choiceRentalType <= 0 || choiceRentalType > 4) {
+                    System.out.println("Not in Menu.Choose again!!");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not in Menu.Choose again!!!");
+            }
+
+        } while (true);
+        if (choiceRentalType == 1) {
+            return "Year";
+        } else if (choiceRentalType == 2) {
+            return "Month";
+        } else if (choiceRentalType == 3) {
+            return "Date";
+        } else {
+            return "Hours";
+        }
+    }
+
+    private String inputRoomStandards() {
+        String name;
+        do {
+            System.out.println("Enter room standards (Special):");
+            name = scanner.nextLine();
+            if (checkName(name)) {
+                break;
+            } else {
+                System.out.println("Room standards format not correct. Enter name again!!!");
+            }
+        } while (true);
+        return name;
+    }
+
+    private int inputNumberFloors() {
+        int numberFloors;
+        do {
+            try {
+                System.out.println("Enter number of floors (>0): ");
+                numberFloors = Integer.parseInt(scanner.nextLine());
+                if (numberFloors > 0) {
+                    return numberFloors;
+                } else {
+                    System.out.println("Floors >0. Enter again!!!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Enter a number.Enter again!!!");
+            }
+        } while (true);
+    }
+
+    private void inputPropertyFacility(Facility facility) {
+        facility.setNameService(inputNameService());
+        facility.setUsableArea(inputUsableArea());
+        facility.setRentalCosts(inputRentalCosts());
+        facility.setMaximumNumberOfPeople(inputMaximumPeople());
+        facility.setRentalType(inputRentalTypeFacility());
+    }
+
+    private double inputPoolArea() {
+        double poolArea;
+        do {
+            try {
+                System.out.println("Enter pool area (>30m2): ");
+                poolArea = Double.parseDouble(scanner.nextLine());
+                if (poolArea > 30) {
+                    break;
+                } else {
+                    System.out.println("Pool Area >30 m2. Enter again!!!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Enter a number. Enter again!!!");
+            }
+        } while (true);
+        return poolArea;
+    }
+
+    private String inputIdServiceRoom() {
+        String idServiceRoom;
+        do {
+            System.out.println("Enter ID service Room (SVRO-1234):");
+            idServiceRoom = scanner.nextLine();
+            if (this.regexUtil.validateString(idServiceRoom, ID_ROOM)) {
+                return idServiceRoom;
+            } else {
+                System.out.println("ID format is not correct!!!");
+            }
+        } while (true);
+    }
+
+    private String inputFreeService() {
+        String freeService;
+        do {
+            System.out.println("Enter free Service Included: ");
+            freeService = scanner.nextLine();
+            if (freeService.equalsIgnoreCase("")) {
+                System.out.println("Not be empty. Enter again!!!");
+            } else {
+                break;
+            }
+        } while (true);
+        return freeService;
+    }
+
+    public Facility createVilla() {
+        Villa villa = new Villa();
+        villa.setIdService(inputIdServiceVilla());
+        inputPropertyFacility(villa);
+        villa.setRoomStandards(inputRoomStandards());
+        villa.setNumberOfFloors(inputNumberFloors());
+        villa.setPoolArea(inputPoolArea());
+        return villa;
+    }
+
+    public Facility createHouse() {
+        House house = new House();
+        house.setIdService(inputIdServiceHouse());
+        inputPropertyFacility(house);
+        house.setRoomStandards(inputRoomStandards());
+        house.setNumberOfFloors(inputNumberFloors());
+        return house;
+    }
+
+    public Facility createRoom() {
+        Room room = new Room();
+        room.setIdService(inputIdServiceRoom());
+        inputPropertyFacility(room);
+        room.setFreeServiceIncluded(inputFreeService());
+        return room;
+    }
+
+    public Facility createFacilityView() {
+        int chooseOption = this.chooseAddFacility();
+        switch (chooseOption) {
+            case 1:
+                return this.createVilla();
+            case 2:
+                return this.createHouse();
+            case 3:
+                return this.createRoom();
+            case 4:
+                return null;
+        }
+        return null;
     }
 
 
@@ -815,13 +1074,25 @@ public class FuramaManagement {
         int chooseMenuFacility = this.chooseMenuFacility();
         switch (chooseMenuFacility) {
             case 1:
+                System.out.println("key: " + this.facilityController.showFacility().keySet() + "value: " + this.facilityController.showFacility().values());
+                break;
             case 2:
+                this.facilityController.createFacility(createFacilityView());
+                System.out.println("Create Facility done");
+                break;
             case 3:
+                LinkedHashMap<Facility, Integer> facilities = this.facilityController.showFacilityMaintenance();
+                facilities.values().add(5);
+                if (facilities.size() == 0) {
+                    System.out.println("There are no services that require maintenance");
+                } else {
+                    System.out.println(facilities);
+                }
+                break;
             case 4:
                 break;
             case 5:
-                this.managementFurama();
-                break;
+                return;
         }
         this.managementFacility();
 
@@ -837,8 +1108,7 @@ public class FuramaManagement {
             case 5:
                 break;
             case 6:
-                this.managementFurama();
-                break;
+                return;
         }
         this.managementBooking();
     }
@@ -850,8 +1120,7 @@ public class FuramaManagement {
             case 2:
                 break;
             case 3:
-                this.managementFurama();
-                break;
+                return;
         }
         this.managementPromotion();
     }

@@ -1,14 +1,14 @@
 package FuramaResort.model.facility;
 
 public abstract class Facility {
-    private int idService;
+    private String idService;
     private String nameService;
     private double usableArea;
     private int rentalCosts;
     private int maximumNumberOfPeople;
     private String rentalType;
 
-    public Facility(int idService, String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType) {
+    public Facility(String idService, String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType) {
         this.idService = idService;
         this.nameService = nameService;
         this.usableArea = usableArea;
@@ -20,11 +20,11 @@ public abstract class Facility {
     public Facility() {
     }
 
-    public int getIdService() {
+    public String getIdService() {
         return idService;
     }
 
-    public void setIdService(int idService) {
+    public void setIdService(String idService) {
         this.idService = idService;
     }
 

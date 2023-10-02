@@ -1,18 +1,18 @@
 package FuramaResort.model.facility;
 
 public class Villa extends Facility {
-    private java.lang.String roomStandards;
+    private String roomStandards;
     private double poolArea;
     private int numberOfFloors;
 
-    public Villa(int idService, java.lang.String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType, java.lang.String roomStandards, double poolArea, int numberOfFloors) {
+    public Villa(String idService, String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType, String roomStandards, double poolArea, int numberOfFloors) {
         super(idService, nameService, usableArea, rentalCosts, maximumNumberOfPeople, rentalType);
         this.roomStandards = roomStandards;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
     }
 
-    public Villa(java.lang.String roomStandards, double poolArea, int numberOfFloors) {
+    public Villa(String roomStandards, double poolArea, int numberOfFloors) {
         this.roomStandards = roomStandards;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
@@ -22,11 +22,11 @@ public class Villa extends Facility {
 
     }
 
-    public java.lang.String getRoomStandards() {
+    public String getRoomStandards() {
         return roomStandards;
     }
 
-    public void setRoomStandards(java.lang.String roomStandards) {
+    public void setRoomStandards(String roomStandards) {
         this.roomStandards = roomStandards;
     }
 
@@ -47,7 +47,7 @@ public class Villa extends Facility {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "Id Service = " + getIdService() +
                 ", Name Service = " + getNameService() +
                 ", Usable Area = " + getUsableArea() +

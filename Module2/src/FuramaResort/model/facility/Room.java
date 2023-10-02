@@ -1,14 +1,14 @@
 package FuramaResort.model.facility;
 
 public class Room extends Facility {
-    private java.lang.String freeServiceIncluded;
+    private String freeServiceIncluded;
 
-    public Room(int idService, java.lang.String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType, java.lang.String freeServiceIncluded) {
+    public Room(String idService, java.lang.String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType, String freeServiceIncluded) {
         super(idService, nameService, usableArea, rentalCosts, maximumNumberOfPeople, rentalType);
         this.freeServiceIncluded = freeServiceIncluded;
     }
 
-    public Room(java.lang.String freeServiceIncluded) {
+    public Room(String freeServiceIncluded) {
         this.freeServiceIncluded = freeServiceIncluded;
     }
 
@@ -16,16 +16,16 @@ public class Room extends Facility {
 
     }
 
-    public java.lang.String getFreeServiceIncluded() {
+    public String getFreeServiceIncluded() {
         return freeServiceIncluded;
     }
 
-    public void setFreeServiceIncluded(java.lang.String freeServiceIncluded) {
+    public void setFreeServiceIncluded(String freeServiceIncluded) {
         this.freeServiceIncluded = freeServiceIncluded;
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "Id Service = " + getIdService() +
                 ", Name Service = " + getNameService() +
                 ", Usable Area = " + getUsableArea() +

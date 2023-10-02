@@ -1,11 +1,10 @@
-package FuramaResort.repository;
+package FuramaResort.service;
 
 import FuramaResort.model.facility.Facility;
 
 import java.util.LinkedHashMap;
 
-
-public interface IFacilityRepository {
+public interface IFacilityService {
     LinkedHashMap<Facility, Integer> showFacility();
 
     void createFacility(Facility key);

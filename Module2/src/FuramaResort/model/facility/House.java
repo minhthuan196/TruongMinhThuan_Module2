@@ -1,16 +1,16 @@
 package FuramaResort.model.facility;
 
 public class House extends Facility {
-    private java.lang.String roomStandards;
+    private String roomStandards;
     private int numberOfFloors;
 
-    public House(int idService, java.lang.String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType, java.lang.String roomStandards, int numberOfFloors) {
+    public House(String idService, java.lang.String nameService, double usableArea, int rentalCosts, int maximumNumberOfPeople, String rentalType,String roomStandards, int numberOfFloors) {
         super(idService, nameService, usableArea, rentalCosts, maximumNumberOfPeople, rentalType);
         this.roomStandards = roomStandards;
         this.numberOfFloors = numberOfFloors;
     }
 
-    public House(java.lang.String roomStandards, int numberOfFloors) {
+    public House(String roomStandards, int numberOfFloors) {
         this.roomStandards = roomStandards;
         this.numberOfFloors = numberOfFloors;
     }
@@ -19,11 +19,11 @@ public class House extends Facility {
 
     }
 
-    public java.lang.String getRoomStandards() {
+    public String getRoomStandards() {
         return roomStandards;
     }
 
-    public void setRoomStandards(java.lang.String roomStandards) {
+    public void setRoomStandards(String roomStandards) {
         this.roomStandards = roomStandards;
     }
 
@@ -36,7 +36,7 @@ public class House extends Facility {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "Id Service = " + getIdService() +
                 ", Name Service = " + getNameService() +
                 ", Usable Area = " + getUsableArea() +
