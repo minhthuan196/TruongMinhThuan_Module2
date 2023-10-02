@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FuramaManagement {
@@ -34,11 +35,181 @@ public class FuramaManagement {
     private static final String IDENTITY_CARD_EMPLOYEE = "^([0-9]{9}|[0-9]{12})$";
     private static final String PHONE_NUMBER_EMPLOYEE = "^0[0-9]{9}$";
     private static final String EMAIL_EMPLOYEE = "(^.*@gmail.com$)|(^.*@outlook.com$)";
-
     private final RegexUtil regexUtil = new RegexUtil();
 
+    public void managementFurama() {
+        int chooseMenu = this.chooseMenu();
+        switch (chooseMenu) {
+            case 1:
+                this.managementEmployee();
+                break;
+            case 2:
+                this.managementCustomer();
+                break;
+            case 3:
+                this.managementFacility();
+                break;
+            case 4:
+                this.managementBooking();
+                break;
+            case 5:
+                this.managementPromotion();
+                break;
+            case 6:
+                System.exit(6);
+                break;
+        }
+        this.managementFurama();
+    }
 
-    public void displayMainMenu() {
+    private void managementEmployee() {
+        int chooseMenuEmployee = this.chooseMenuEmployee();
+        switch (chooseMenuEmployee) {
+            case 1:
+                System.out.println(this.employeeController.showEmployee());
+                break;
+            case 2:
+                this.employeeController.createEmployee(createEmployeeView());
+                System.out.println("Create employee done");
+                break;
+            case 3:
+                Employee employeeEdit = this.createEmployeeEdit();
+                if (employeeEdit == null) {
+                    System.out.println("Id not find need update");
+                } else {
+                    this.employeeController.updateEmployee(employeeEdit);
+                    System.out.println("Update employee done");
+                }
+                break;
+            case 4:
+                String idEmployee = this.inputIdEmployee();
+                if (checkIdEmployee(idEmployee)) {
+                    this.employeeController.removeEmployee(idEmployee);
+                    System.out.println("Remove employee done");
+                } else {
+                    System.out.println("Id not find need remove");
+                }
+                break;
+            case 5:
+                String name = inputNameNeedFind();
+                List<Employee> employees = this.employeeController.findEmployee(name);
+                if (employees.size() == 0) {
+                    System.out.println("Name not found!!!");
+                } else {
+                    System.out.println(employees);
+                }
+                break;
+            case 6:
+                return;
+        }
+        this.managementEmployee();
+    }
+
+    private void managementCustomer() {
+        int chooseMenuCustomer = this.chooseMenuCustomer();
+        switch (chooseMenuCustomer) {
+            case 1:
+                System.out.println(this.customerController.showCustomer());
+                break;
+            case 2:
+                this.customerController.createCustomer(createCustomerView());
+                System.out.println("Create customer done");
+                break;
+            case 3:
+                Customer customerEdit = this.createCustomerEdit();
+                if (customerEdit == null) {
+                    System.out.println("Id not find need update");
+                } else {
+                    this.customerController.updateCustomer(customerEdit);
+                    System.out.println("Update customer done");
+                }
+                break;
+            case 4:
+                String idCustomer = this.inputIdCustomer();
+                if (checkIdCustomer(idCustomer)) {
+                    this.customerController.removeCustomer(idCustomer);
+                    System.out.println("Remove customer done");
+                } else {
+                    System.out.println("Id not find need remove");
+                }
+                break;
+            case 5:
+                String name = inputNameNeedFind();
+                List<Customer> customers = this.customerController.findCustomer(name);
+                if (customers.size() == 0) {
+                    System.out.println("Name not found!!!");
+                } else {
+                    System.out.println(customers);
+                }
+                break;
+            case 6:
+                return;
+        }
+        this.managementCustomer();
+    }
+
+    private void managementFacility() {
+        int chooseMenuFacility = this.chooseMenuFacility();
+        switch (chooseMenuFacility) {
+            case 1:
+                System.out.println("key: " + this.facilityController.showFacility().keySet() + "value: " + this.facilityController.showFacility().values());
+                break;
+            case 2:
+                this.facilityController.createFacility(createFacilityView());
+                System.out.println("Create Facility done");
+                break;
+            case 3:
+                LinkedHashMap<Facility, Integer> facilities = this.facilityController.showFacilityMaintenance();
+                if (facilities.size() == 0) {
+                    System.out.println("There are no services that require maintenance");
+                } else {
+                    System.out.println(facilities);
+                }
+                break;
+            case 4:
+                Facility facilityRemove = getFacilityRemove();
+                if (facilityRemove == null) {
+                    System.out.println("Facility not find");
+                } else {
+                    this.facilityController.removeFacility(facilityRemove);
+                    System.out.println("Facility with ID: " + facilityRemove.getIdService() + " remove done!!!");
+                }
+                break;
+            case 5:
+                return;
+        }
+        this.managementFacility();
+
+    }
+
+    private void managementBooking() {
+        int chooseMenuBooking = this.chooseMenuBooking();
+        switch (chooseMenuBooking) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                break;
+            case 6:
+                return;
+        }
+        this.managementBooking();
+    }
+
+    private void managementPromotion() {
+        int chooseMenuPromotion = this.chooseMenuPromotion();
+        switch (chooseMenuPromotion) {
+            case 1:
+            case 2:
+                break;
+            case 3:
+                return;
+        }
+        this.managementPromotion();
+    }
+
+    private void displayMainMenu() {
         System.out.println("==========MENU==========");
         System.out.println("1. Employee Management");
         System.out.println("2. Customer Management");
@@ -48,7 +219,7 @@ public class FuramaManagement {
         System.out.println("6. Exit");
     }
 
-    public void displayEmployee() {
+    private void displayEmployee() {
         System.out.println("1. Display list employees");
         System.out.println("2. Add new employee");
         System.out.println("3. Edit employee");
@@ -57,7 +228,7 @@ public class FuramaManagement {
         System.out.println("6. Return main menu");
     }
 
-    public void displayCustomer() {
+    private void displayCustomer() {
         System.out.println("1. Display list customers");
         System.out.println("2. Add new customer");
         System.out.println("3. Edit customer");
@@ -66,7 +237,7 @@ public class FuramaManagement {
         System.out.println("6. Return main menu");
     }
 
-    public void displayFacility() {
+    private void displayFacility() {
         System.out.println("1. Display list facility");
         System.out.println("2. Add new facility");
         System.out.println("3. Display list facility maintenance");
@@ -74,7 +245,7 @@ public class FuramaManagement {
         System.out.println("5. Return main menu");
     }
 
-    public void displayBooking() {
+    private void displayBooking() {
         System.out.println("1. Add new booking");
         System.out.println("2. Display list booking");
         System.out.println("3. Create new contracts");
@@ -83,13 +254,13 @@ public class FuramaManagement {
         System.out.println("6. Return main menu");
     }
 
-    public void displayPromotion() {
+    private void displayPromotion() {
         System.out.println("1. Display list customers use service");
         System.out.println("2. Display list customers get voucher");
         System.out.println("3. Return main menu");
     }
 
-    public int chooseMenu() {
+    private int chooseMenu() {
         int chooseOption;
         do {
             try {
@@ -107,7 +278,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public int chooseMenuEmployee() {
+    private int chooseMenuEmployee() {
         int chooseOptionEmployee;
         do {
             try {
@@ -125,7 +296,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public int chooseMenuCustomer() {
+    private int chooseMenuCustomer() {
         int chooseMenuEmployee;
         do {
             try {
@@ -143,7 +314,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public int chooseMenuFacility() {
+    private int chooseMenuFacility() {
         int chooseMenuFacility;
         do {
             try {
@@ -161,7 +332,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public int chooseMenuBooking() {
+    private int chooseMenuBooking() {
         int chooseMenuBooking;
         do {
             try {
@@ -179,7 +350,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public int chooseMenuPromotion() {
+    private int chooseMenuPromotion() {
         int chooseMenuPromotion;
         do {
             try {
@@ -197,7 +368,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public boolean checkIdEmployee(String idEmployee) {
+    private boolean checkIdEmployee(String idEmployee) {
         for (Employee employee : this.employeeController.showEmployee()) {
             if (employee.getIdEmployee().equalsIgnoreCase(idEmployee)) {
                 return true;
@@ -206,7 +377,7 @@ public class FuramaManagement {
         return false;
     }
 
-    public String inputIdEmployee() {
+    private String inputIdEmployee() {
         String idEmployee;
         do {
             System.out.println("Enter ID Employee (NV-1234): ");
@@ -219,7 +390,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public Employee createEmployeeView() {
+    private Employee createEmployeeView() {
         Employee employee = new Employee();
         String idEmployee;
         do {
@@ -233,7 +404,7 @@ public class FuramaManagement {
         return employee;
     }
 
-    public Employee createEmployeeEdit() {
+    private Employee createEmployeeEdit() {
         Employee employee = new Employee();
         String idEmployee = inputIdEmployee();
         boolean flag = false;
@@ -544,49 +715,6 @@ public class FuramaManagement {
         return name;
     }
 
-    public void managementEmployee() {
-        int chooseMenuEmployee = this.chooseMenuEmployee();
-        switch (chooseMenuEmployee) {
-            case 1:
-                System.out.println(this.employeeController.showEmployee());
-                break;
-            case 2:
-                this.employeeController.createEmployee(createEmployeeView());
-                System.out.println("Create employee done");
-                break;
-            case 3:
-                Employee employeeEdit = this.createEmployeeEdit();
-                if (employeeEdit == null) {
-                    System.out.println("Id not find need update");
-                } else {
-                    this.employeeController.updateEmployee(employeeEdit);
-                    System.out.println("Update employee done");
-                }
-                break;
-            case 4:
-                String idEmployee = this.inputIdEmployee();
-                if (checkIdEmployee(idEmployee)) {
-                    this.employeeController.removeEmployee(idEmployee);
-                    System.out.println("Remove employee done");
-                } else {
-                    System.out.println("Id not find need remove");
-                }
-                break;
-            case 5:
-                String name = inputNameNeedFind();
-                List<Employee> employees = this.employeeController.findEmployee(name);
-                if (employees.size() == 0) {
-                    System.out.println("Name not found!!!");
-                } else {
-                    System.out.println(employees);
-                }
-                break;
-            case 6:
-                return;
-        }
-        this.managementEmployee();
-    }
-
     private Customer createCustomerView() {
         Customer customer = new Customer();
         String idCustomer;
@@ -657,7 +785,7 @@ public class FuramaManagement {
         }
     }
 
-    public String inputIdCustomer() {
+    private String inputIdCustomer() {
         String idCustomer;
         do {
             System.out.println("Enter ID Customer (KH-1234): ");
@@ -670,7 +798,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    public boolean checkIdCustomer(String idCustomer) {
+    private boolean checkIdCustomer(String idCustomer) {
         for (Customer customer : this.customerController.showCustomer()) {
             if (customer.getIdCustomer().equalsIgnoreCase(idCustomer)) {
                 return true;
@@ -679,7 +807,7 @@ public class FuramaManagement {
         return false;
     }
 
-    public Customer createCustomerEdit() {
+    private Customer createCustomerEdit() {
         Customer customer = new Customer();
         String idCustomer = inputIdCustomer();
         boolean flagCustomer = false;
@@ -749,58 +877,14 @@ public class FuramaManagement {
         }
     }
 
-
-    public void managementCustomer() {
-        int chooseMenuCustomer = this.chooseMenuCustomer();
-        switch (chooseMenuCustomer) {
-            case 1:
-                System.out.println(this.customerController.showCustomer());
-                break;
-            case 2:
-                this.customerController.createCustomer(createCustomerView());
-                System.out.println("Create customer done");
-                break;
-            case 3:
-                Customer customerEdit = this.createCustomerEdit();
-                if (customerEdit == null) {
-                    System.out.println("Id not find need update");
-                } else {
-                    this.customerController.updateCustomer(customerEdit);
-                    System.out.println("Update customer done");
-                }
-                break;
-            case 4:
-                String idCustomer = this.inputIdCustomer();
-                if (checkIdCustomer(idCustomer)) {
-                    this.customerController.removeCustomer(idCustomer);
-                    System.out.println("Remove customer done");
-                } else {
-                    System.out.println("Id not find need remove");
-                }
-                break;
-            case 5:
-                String name = inputNameNeedFind();
-                List<Customer> customers = this.customerController.findCustomer(name);
-                if (customers.size() == 0) {
-                    System.out.println("Name not found!!!");
-                } else {
-                    System.out.println(customers);
-                }
-                break;
-            case 6:
-                return;
-        }
-        this.managementCustomer();
-    }
-
-    public void menuAddFacility() {
+    private void menuAddFacility() {
         System.out.println("1. Add New Villa");
         System.out.println("2. Add New House");
         System.out.println("3. Add New Room");
         System.out.println("4. Back to menu");
     }
 
-    public int chooseAddFacility() {
+    private int chooseAddFacility() {
         int choose;
         do {
             try {
@@ -1027,7 +1111,7 @@ public class FuramaManagement {
         return freeService;
     }
 
-    public Facility createVilla() {
+    private Facility createVilla() {
         Villa villa = new Villa();
         villa.setIdService(inputIdServiceVilla());
         inputPropertyFacility(villa);
@@ -1037,7 +1121,7 @@ public class FuramaManagement {
         return villa;
     }
 
-    public Facility createHouse() {
+    private Facility createHouse() {
         House house = new House();
         house.setIdService(inputIdServiceHouse());
         inputPropertyFacility(house);
@@ -1046,7 +1130,7 @@ public class FuramaManagement {
         return house;
     }
 
-    public Facility createRoom() {
+    private Facility createRoom() {
         Room room = new Room();
         room.setIdService(inputIdServiceRoom());
         inputPropertyFacility(room);
@@ -1054,7 +1138,7 @@ public class FuramaManagement {
         return room;
     }
 
-    public Facility createFacilityView() {
+    private Facility createFacilityView() {
         int chooseOption = this.chooseAddFacility();
         switch (chooseOption) {
             case 1:
@@ -1069,84 +1153,28 @@ public class FuramaManagement {
         return null;
     }
 
-
-    public void managementFacility() {
-        int chooseMenuFacility = this.chooseMenuFacility();
-        switch (chooseMenuFacility) {
-            case 1:
-                System.out.println("key: " + this.facilityController.showFacility().keySet() + "value: " + this.facilityController.showFacility().values());
-                break;
-            case 2:
-                this.facilityController.createFacility(createFacilityView());
-                System.out.println("Create Facility done");
-                break;
-            case 3:
-                LinkedHashMap<Facility, Integer> facilities = this.facilityController.showFacilityMaintenance();
-                facilities.values().add(5);
-                if (facilities.size() == 0) {
-                    System.out.println("There are no services that require maintenance");
-                } else {
-                    System.out.println(facilities);
-                }
-                break;
-            case 4:
-                break;
-            case 5:
-                return;
-        }
-        this.managementFacility();
-
+    private String inputIdFacilityRemove() {
+        String idFacility;
+        do {
+            System.out.println("Enter id Facility need remove (SVVL-1234 or SVHO-1234 or SVRO-1234): ");
+            idFacility = scanner.nextLine();
+            if (regexUtil.validateString(idFacility, ID_VILLA) || regexUtil.validateString(idFacility, ID_HOUSE) || regexUtil.validateString(idFacility, ID_ROOM)) {
+                return idFacility;
+            } else {
+                System.out.println("ID format not correct. Enter again!!!");
+            }
+        } while (true);
     }
 
-    public void managementBooking() {
-        int chooseMenuBooking = this.chooseMenuBooking();
-        switch (chooseMenuBooking) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
+    private Facility getFacilityRemove() {
+        Facility facility = null;
+        String idFacility = inputIdFacilityRemove();
+        for (Map.Entry<Facility, Integer> entry : this.facilityController.showFacility().entrySet()) {
+            if (entry.getKey().getIdService().equalsIgnoreCase(idFacility)) {
+                facility = entry.getKey();
                 break;
-            case 6:
-                return;
+            }
         }
-        this.managementBooking();
-    }
-
-    public void managementPromotion() {
-        int chooseMenuPromotion = this.chooseMenuPromotion();
-        switch (chooseMenuPromotion) {
-            case 1:
-            case 2:
-                break;
-            case 3:
-                return;
-        }
-        this.managementPromotion();
-    }
-
-    public void managementFurama() {
-        int chooseMenu = this.chooseMenu();
-        switch (chooseMenu) {
-            case 1:
-                this.managementEmployee();
-                break;
-            case 2:
-                this.managementCustomer();
-                break;
-            case 3:
-                this.managementFacility();
-                break;
-            case 4:
-                this.managementBooking();
-                break;
-            case 5:
-                this.managementPromotion();
-                break;
-            case 6:
-                System.exit(6);
-                break;
-        }
-        this.managementFurama();
+        return facility;
     }
 }

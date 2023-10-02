@@ -11,6 +11,7 @@ public class Customer extends Person {
         this.customerType = customerType;
         this.address = address;
     }
+
     public Customer() {
 
     }
@@ -41,14 +42,6 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return "Id Customer = " + idCustomer +
-                ", Name = " + getName() +
-                ", Date Of Birth = " + getDateOfBirth() +
-                ", Gender = " + getGender() +
-                ", Identity Card = " + getIdentityCard() +
-                ", Phone Number = " + getPhoneNumber() +
-                ", Mail = " + getMail() +
-                ", Customer Type = " + customerType +
-                ", Address = " + address + "\n";
+        return "Id Customer = " + idCustomer + ", Name = " + getName() + ", Date Of Birth = " + getDateOfBirth() + ", Gender = " + getGender() + ", Identity Card = " + getIdentityCard() + ", Phone Number = " + getPhoneNumber() + ", Mail = " + getMail() + ", Customer Type = " + customerType + ", Address = " + address + "\n";
     }
 }

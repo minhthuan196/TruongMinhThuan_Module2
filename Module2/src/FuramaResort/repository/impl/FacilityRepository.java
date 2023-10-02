@@ -1,6 +1,9 @@
 package FuramaResort.repository.impl;
 
 import FuramaResort.model.facility.Facility;
+import FuramaResort.model.facility.House;
+import FuramaResort.model.facility.Room;
+import FuramaResort.model.facility.Villa;
 import FuramaResort.repository.IFacilityRepository;
 
 import java.util.LinkedHashMap;
@@ -8,6 +11,12 @@ import java.util.Map;
 
 public class FacilityRepository implements IFacilityRepository {
     private static final LinkedHashMap<Facility, Integer> facilityLinkedHashMap = new LinkedHashMap<>();
+
+    static {
+        facilityLinkedHashMap.put(new House("SVHO-1234", "Vip One", 32, 12, 10, "Year", "Vip", 10), 5);
+        facilityLinkedHashMap.put(new Villa("SVVL-1234", "Vip One", 32, 12, 10, "Year", "Vip", 23, 10), 5);
+        facilityLinkedHashMap.put(new Room("SVRO-1234", "Vip One", 32, 12, 10, "Year", "An uong"), 0);
+    }
 
     @Override
     public LinkedHashMap<Facility, Integer> showFacility() {
