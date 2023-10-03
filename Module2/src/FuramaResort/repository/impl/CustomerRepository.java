@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepository implements IPersonRepository<Customer> {
-    public static final String CUSTOMER_CSV = "D:\\Codegym\\module2\\Module2\\src\\FuramaResort\\data\\customer.csv";
-    public static final String COMMA = ",";
+    private static final String CUSTOMER_CSV = "D:\\Codegym\\module2\\Module2\\src\\FuramaResort\\data\\customer.csv";
+    private static final String COMMA = ",";
 
     @Override
     public List<Customer> showPerson() {
@@ -18,9 +18,10 @@ public class CustomerRepository implements IPersonRepository<Customer> {
 
     @Override
     public void createPerson(Customer customer) {
-        List<Customer> customers = readCustomerFromFile();
+        //List<Customer> customers = readCustomerFromFile();
+        List<Customer> customers = new ArrayList<>();
         customers.add(customer);
-        writeCustomerToFile(customers);
+        writeCustomerToFile(customers, true);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class CustomerRepository implements IPersonRepository<Customer> {
                 break;
             }
         }
-        writeCustomerToFile(customers);
+        writeCustomerToFile(customers, false);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class CustomerRepository implements IPersonRepository<Customer> {
                 break;
             }
         }
-        writeCustomerToFile(customers);
+        writeCustomerToFile(customers, false);
     }
 
     @Override
@@ -81,9 +82,9 @@ public class CustomerRepository implements IPersonRepository<Customer> {
         return customers;
     }
 
-    private void writeCustomerToFile(List<Customer> customers) {
+    private void writeCustomerToFile(List<Customer> customers, boolean flag) {
         List<String> data = convertCustomerToString(customers);
-        FileUtil.writeFile(CUSTOMER_CSV, data);
+        FileUtil.writeFile(CUSTOMER_CSV, data, flag);
     }
 
     private static List<String> convertCustomerToString(List<Customer> customers) {

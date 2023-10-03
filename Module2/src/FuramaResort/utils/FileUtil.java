@@ -39,13 +39,13 @@ public class FileUtil {
         return new ArrayList<>();
     }
 
-    public static void writeFile(String pathName, List<String> data) {
+    public static void writeFile(String pathName, List<String> data, boolean flag) {
         File file;
         FileWriter fileWriter = null;
         BufferedWriter bufferedWriter = null;
         try {
             file = new File(pathName);
-            fileWriter = new FileWriter(file);
+            fileWriter = new FileWriter(file, flag);
             bufferedWriter = new BufferedWriter(fileWriter);
             for (String str : data) {
                 bufferedWriter.write(str);

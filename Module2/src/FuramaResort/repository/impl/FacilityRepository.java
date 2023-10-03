@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class FacilityRepository implements IFacilityRepository {
-    private static final LinkedHashMap<Facility, Integer> facilityLinkedHashMap = new LinkedHashMap<>();
+    private static final Map<Facility, Integer> facilityLinkedHashMap = new LinkedHashMap<>();
 
     static {
         facilityLinkedHashMap.put(new House("SVHO-1234", "Vip One", 32, 12, 10, "Year", "Vip", 10), 5);
@@ -19,7 +19,7 @@ public class FacilityRepository implements IFacilityRepository {
     }
 
     @Override
-    public LinkedHashMap<Facility, Integer> showFacility() {
+    public Map<Facility, Integer> showFacility() {
         return facilityLinkedHashMap;
     }
 
@@ -29,7 +29,7 @@ public class FacilityRepository implements IFacilityRepository {
     }
 
     @Override
-    public LinkedHashMap<Facility, Integer> showFacilityMaintenance() {
+    public Map<Facility, Integer> showFacilityMaintenance() {
         LinkedHashMap<Facility, Integer> facilityMaintenance = new LinkedHashMap<>();
         for (Map.Entry<Facility, Integer> entry : facilityLinkedHashMap.entrySet()) {
             if (entry.getValue() == 5) {

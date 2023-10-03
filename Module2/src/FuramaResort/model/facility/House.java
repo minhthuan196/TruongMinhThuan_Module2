@@ -10,11 +10,6 @@ public class House extends Facility {
         this.numberOfFloors = numberOfFloors;
     }
 
-    public House(String roomStandards, int numberOfFloors) {
-        this.roomStandards = roomStandards;
-        this.numberOfFloors = numberOfFloors;
-    }
-
     public House() {
 
     }
@@ -43,7 +38,7 @@ public class House extends Facility {
                 ", Rental Costs = " + getRentalCosts() +
                 ", MaximumNumber Of People = " + getMaximumNumberOfPeople() +
                 ", Rental Type = " + getRentalType() +
-                ", Room Standards = " + roomStandards +
-                ", Number Of Floors = " + numberOfFloors + "\n";
+                ", Room Standards = " + getRoomStandards() +
+                ", Number Of Floors = " + getNumberOfFloors() + "\n";
     }
 }

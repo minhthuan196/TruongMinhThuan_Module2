@@ -4,14 +4,13 @@ import FuramaResort.model.facility.Facility;
 import FuramaResort.repository.IFacilityRepository;
 import FuramaResort.repository.impl.FacilityRepository;
 import FuramaResort.service.IFacilityService;
-
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class FacilityService implements IFacilityService {
     private final IFacilityRepository facilityRepository = new FacilityRepository();
 
     @Override
-    public LinkedHashMap<Facility, Integer> showFacility() {
+    public Map<Facility, Integer> showFacility() {
         return facilityRepository.showFacility();
     }
 
@@ -21,7 +20,7 @@ public class FacilityService implements IFacilityService {
     }
 
     @Override
-    public LinkedHashMap<Facility, Integer> showFacilityMaintenance() {
+    public Map<Facility, Integer> showFacilityMaintenance() {
         return facilityRepository.showFacilityMaintenance();
     }
 

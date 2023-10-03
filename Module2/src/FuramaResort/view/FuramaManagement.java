@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -38,178 +37,175 @@ public class FuramaManagement {
     private final RegexUtil regexUtil = new RegexUtil();
 
     public void managementFurama() {
-        int chooseMenu = this.chooseMenu();
-        switch (chooseMenu) {
-            case 1:
-                this.managementEmployee();
-                break;
-            case 2:
-                this.managementCustomer();
-                break;
-            case 3:
-                this.managementFacility();
-                break;
-            case 4:
-                this.managementBooking();
-                break;
-            case 5:
-                this.managementPromotion();
-                break;
-            case 6:
-                System.exit(6);
-                break;
-        }
-        this.managementFurama();
+        do {
+            switch (chooseMenu()) {
+                case 1:
+                    this.managementEmployee();
+                    break;
+                case 2:
+                    this.managementCustomer();
+                    break;
+                case 3:
+                    this.managementFacility();
+                    break;
+                case 4:
+                    this.managementBooking();
+                    break;
+                case 5:
+                    this.managementPromotion();
+                    break;
+                case 6:
+                    System.exit(6);
+                    break;
+            }
+        } while (true);
     }
 
     private void managementEmployee() {
-        int chooseMenuEmployee = this.chooseMenuEmployee();
-        switch (chooseMenuEmployee) {
-            case 1:
-                System.out.println(this.employeeController.showEmployee());
-                break;
-            case 2:
-                this.employeeController.createEmployee(createEmployeeView());
-                System.out.println("Create employee done");
-                break;
-            case 3:
-                Employee employeeEdit = this.createEmployeeEdit();
-                if (employeeEdit == null) {
-                    System.out.println("Id not find need update");
-                } else {
-                    this.employeeController.updateEmployee(employeeEdit);
-                    System.out.println("Update employee done");
-                }
-                break;
-            case 4:
-                String idEmployee = this.inputIdEmployee();
-                if (checkIdEmployee(idEmployee)) {
-                    this.employeeController.removeEmployee(idEmployee);
-                    System.out.println("Remove employee done");
-                } else {
-                    System.out.println("Id not find need remove");
-                }
-                break;
-            case 5:
-                String name = inputNameNeedFind();
-                List<Employee> employees = this.employeeController.findEmployee(name);
-                if (employees.size() == 0) {
-                    System.out.println("Name not found!!!");
-                } else {
-                    System.out.println(employees);
-                }
-                break;
-            case 6:
-                return;
-        }
-        this.managementEmployee();
+        do {
+            switch (chooseMenuEmployee()) {
+                case 1:
+                    System.out.println(this.employeeController.showEmployee());
+                    break;
+                case 2:
+                    this.employeeController.createEmployee(createEmployeeNew());
+                    System.out.println("Create employee done");
+                    break;
+                case 3:
+                    Employee employeeEdit = this.createEmployeeEdit();
+                    if (employeeEdit == null) {
+                        System.out.println("Id not find need update");
+                    } else {
+                        this.employeeController.updateEmployee(employeeEdit);
+                        System.out.println("Update employee with ID employee " + employeeEdit.getIdEmployee() + " done");
+                    }
+                    break;
+                case 4:
+                    String idEmployee = this.inputIdEmployee();
+                    if (checkIdEmployee(idEmployee)) {
+                        this.employeeController.removeEmployee(idEmployee);
+                        System.out.println("Remove employee with ID employee " + idEmployee + " done");
+                    } else {
+                        System.out.println("Id not find need remove");
+                    }
+                    break;
+                case 5:
+                    List<Employee> employees = this.employeeController.findEmployee(inputNameNeedFind());
+                    if (employees.size() == 0) {
+                        System.out.println("Name not found!!!");
+                    } else {
+                        System.out.println(employees);
+                    }
+                    break;
+                case 6:
+                    return;
+            }
+        } while (true);
     }
 
     private void managementCustomer() {
-        int chooseMenuCustomer = this.chooseMenuCustomer();
-        switch (chooseMenuCustomer) {
-            case 1:
-                System.out.println(this.customerController.showCustomer());
-                break;
-            case 2:
-                this.customerController.createCustomer(createCustomerView());
-                System.out.println("Create customer done");
-                break;
-            case 3:
-                Customer customerEdit = this.createCustomerEdit();
-                if (customerEdit == null) {
-                    System.out.println("Id not find need update");
-                } else {
-                    this.customerController.updateCustomer(customerEdit);
-                    System.out.println("Update customer done");
-                }
-                break;
-            case 4:
-                String idCustomer = this.inputIdCustomer();
-                if (checkIdCustomer(idCustomer)) {
-                    this.customerController.removeCustomer(idCustomer);
-                    System.out.println("Remove customer done");
-                } else {
-                    System.out.println("Id not find need remove");
-                }
-                break;
-            case 5:
-                String name = inputNameNeedFind();
-                List<Customer> customers = this.customerController.findCustomer(name);
-                if (customers.size() == 0) {
-                    System.out.println("Name not found!!!");
-                } else {
-                    System.out.println(customers);
-                }
-                break;
-            case 6:
-                return;
-        }
-        this.managementCustomer();
+        do {
+            switch (chooseMenuCustomer()) {
+                case 1:
+                    System.out.println(this.customerController.showCustomer());
+                    break;
+                case 2:
+                    this.customerController.createCustomer(createCustomerNew());
+                    System.out.println("Create customer done");
+                    break;
+                case 3:
+                    Customer customerEdit = this.createCustomerEdit();
+                    if (customerEdit == null) {
+                        System.out.println("Id not find need update");
+                    } else {
+                        this.customerController.updateCustomer(customerEdit);
+                        System.out.println("Update customer with Id customer " + customerEdit.getIdCustomer() + " done");
+                    }
+                    break;
+                case 4:
+                    String idCustomer = this.inputIdCustomer();
+                    if (checkIdCustomer(idCustomer)) {
+                        this.customerController.removeCustomer(idCustomer);
+                        System.out.println("Remove customer with Id customer " + idCustomer + " done");
+                    } else {
+                        System.out.println("Id not find need remove");
+                    }
+                    break;
+                case 5:
+                    List<Customer> customers = this.customerController.findCustomer(inputNameNeedFind());
+                    if (customers.size() == 0) {
+                        System.out.println("Name not found!!!");
+                    } else {
+                        System.out.println(customers);
+                    }
+                    break;
+                case 6:
+                    return;
+            }
+        } while (true);
     }
 
     private void managementFacility() {
-        int chooseMenuFacility = this.chooseMenuFacility();
-        switch (chooseMenuFacility) {
-            case 1:
-                System.out.println("key: " + this.facilityController.showFacility().keySet() + "value: " + this.facilityController.showFacility().values());
-                break;
-            case 2:
-                Facility facility = createFacilityView();
-                if (facility != null) {
-                    this.facilityController.createFacility(facility);
-                    System.out.println("Create Facility done");
-                }
-                break;
-            case 3:
-                LinkedHashMap<Facility, Integer> facilities = this.facilityController.showFacilityMaintenance();
-                if (facilities.size() == 0) {
-                    System.out.println("There are no services that require maintenance");
-                } else {
-                    System.out.println(facilities);
-                }
-                break;
-            case 4:
-                Facility facilityRemove = getFacilityRemove();
-                if (facilityRemove == null) {
-                    System.out.println("Facility not find");
-                } else {
-                    this.facilityController.removeFacility(facilityRemove);
-                    System.out.println("Facility with ID: " + facilityRemove.getIdService() + " remove done!!!");
-                }
-                break;
-            case 5:
-                return;
-        }
-        this.managementFacility();
-
+        do {
+            switch (chooseMenuFacility()) {
+                case 1:
+                    System.out.println("key: " + this.facilityController.showFacility().keySet() + "value: " + this.facilityController.showFacility().values());
+                    break;
+                case 2:
+                    Facility facility = createFacilityView();
+                    if (facility != null) {
+                        this.facilityController.createFacility(facility);
+                        System.out.println("Create Facility done");
+                    }
+                    break;
+                case 3:
+                    Map<Facility, Integer> facilities = this.facilityController.showFacilityMaintenance();
+                    if (facilities.size() == 0) {
+                        System.out.println("There are no services that require maintenance");
+                    } else {
+                        System.out.println(facilities);
+                    }
+                    break;
+                case 4:
+                    Facility facilityRemove = getFacilityRemove();
+                    if (facilityRemove == null) {
+                        System.out.println("Facility not find");
+                    } else {
+                        this.facilityController.removeFacility(facilityRemove);
+                        System.out.println("Facility with ID: " + facilityRemove.getIdService() + " remove done!!!");
+                    }
+                    break;
+                case 5:
+                    return;
+            }
+        } while (true);
     }
 
     private void managementBooking() {
-        int chooseMenuBooking = this.chooseMenuBooking();
-        switch (chooseMenuBooking) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                break;
-            case 6:
-                return;
-        }
-        this.managementBooking();
+        do {
+            switch (chooseMenuBooking()) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    break;
+                case 6:
+                    return;
+            }
+        } while (true);
     }
 
     private void managementPromotion() {
-        int chooseMenuPromotion = this.chooseMenuPromotion();
-        switch (chooseMenuPromotion) {
-            case 1:
-            case 2:
-                break;
-            case 3:
-                return;
-        }
-        this.managementPromotion();
+        do {
+            switch (chooseMenuPromotion()) {
+                case 1:
+                case 2:
+                    break;
+                case 3:
+                    return;
+            }
+        } while (true);
     }
 
     private void displayMainMenu() {
@@ -393,7 +389,7 @@ public class FuramaManagement {
         } while (true);
     }
 
-    private Employee createEmployeeView() {
+    private Employee createEmployeeNew() {
         Employee employee = new Employee();
         String idEmployee;
         do {
@@ -718,7 +714,7 @@ public class FuramaManagement {
         return name;
     }
 
-    private Customer createCustomerView() {
+    private Customer createCustomerNew() {
         Customer customer = new Customer();
         String idCustomer;
         do {
@@ -908,7 +904,7 @@ public class FuramaManagement {
     private String inputIdServiceVilla() {
         String idServiceVilla;
         do {
-            System.out.println("Enter ID service Villa (SVVl-1234):");
+            System.out.println("Enter ID service Villa (SVVL-1234):");
             idServiceVilla = scanner.nextLine();
             if (this.regexUtil.validateString(idServiceVilla, ID_VILLA)) {
                 return idServiceVilla;

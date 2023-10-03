@@ -12,12 +12,6 @@ public class Villa extends Facility {
         this.numberOfFloors = numberOfFloors;
     }
 
-    public Villa(String roomStandards, double poolArea, int numberOfFloors) {
-        this.roomStandards = roomStandards;
-        this.poolArea = poolArea;
-        this.numberOfFloors = numberOfFloors;
-    }
-
     public Villa() {
 
     }
@@ -54,8 +48,8 @@ public class Villa extends Facility {
                 ", Rental Costs = " + getRentalCosts() +
                 ", MaximumNumber Of People = " + getMaximumNumberOfPeople() +
                 ", Rental Type = " + getRentalType() +
-                ", Room Standards = " + roomStandards +
-                ", Pool Area = " + poolArea +
-                ", Number Of Floors = " + numberOfFloors + "\n";
+                ", Room Standards = " + getRoomStandards() +
+                ", Pool Area = " + getPoolArea() +
+                ", Number Of Floors = " + getNumberOfFloors() + "\n";
     }
 }

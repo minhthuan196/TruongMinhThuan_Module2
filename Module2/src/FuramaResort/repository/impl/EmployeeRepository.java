@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepository implements IPersonRepository<Employee> {
-    public static final String EMPLOYEE_CSV = "D:\\Codegym\\module2\\Module2\\src\\FuramaResort\\data\\employee.csv";
-    public static final String COMMA = ",";
+    private static final String EMPLOYEE_CSV = "D:\\Codegym\\module2\\Module2\\src\\FuramaResort\\data\\employee.csv";
+    private static final String COMMA = ",";
 
     @Override
     public List<Employee> showPerson() {
@@ -18,9 +18,10 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
 
     @Override
     public void createPerson(Employee employee) {
-        List<Employee> employees = readEmployeeFromFile();
+        //List<Employee> employees = readEmployeeFromFile();
+        List<Employee> employees = new ArrayList<>();
         employees.add(employee);
-        writeEmployeeToFile(employees);
+        writeEmployeeToFile(employees,true);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
                 break;
             }
         }
-        writeEmployeeToFile(employees);
+        writeEmployeeToFile(employees,false);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
                 break;
             }
         }
-        writeEmployeeToFile(employees);
+        writeEmployeeToFile(employees,false);
     }
 
     @Override
@@ -82,9 +83,9 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
         return employees;
     }
 
-    private void writeEmployeeToFile(List<Employee> employees) {
+    private void writeEmployeeToFile(List<Employee> employees,Boolean flag) {
         List<String> data = convertEmployeeToString(employees);
-        FileUtil.writeFile(EMPLOYEE_CSV, data);
+        FileUtil.writeFile(EMPLOYEE_CSV, data,flag);
     }
 
     private static List<String> convertEmployeeToString(List<Employee> employees) {

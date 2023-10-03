@@ -8,10 +8,6 @@ public class Room extends Facility {
         this.freeServiceIncluded = freeServiceIncluded;
     }
 
-    public Room(String freeServiceIncluded) {
-        this.freeServiceIncluded = freeServiceIncluded;
-    }
-
     public Room() {
 
     }
@@ -32,6 +28,6 @@ public class Room extends Facility {
                 ", Rental Costs = " + getRentalCosts() +
                 ", MaximumNumber Of People = " + getMaximumNumberOfPeople() +
                 ", Rental Type = " + getRentalType() +
-                ", Free Service Included = " + freeServiceIncluded + "\n";
+                ", Free Service Included = " + getFreeServiceIncluded() + "\n";
     }
 }
