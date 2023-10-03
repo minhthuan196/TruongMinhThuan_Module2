@@ -685,7 +685,7 @@ public class FuramaManagement {
         return name;
     }
 
-    public boolean checkName(String str) {
+    private boolean checkName(String str) {
         str = str.trim();
         String[] arrayStr = str.split(" ");
         for (String s : arrayStr) {
@@ -696,7 +696,7 @@ public class FuramaManagement {
         return true;
     }
 
-    public boolean checkDateOfBirth(String date) {
+    private boolean checkDateOfBirth(String date) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date1 = LocalDate.parse(date, dateTimeFormatter);
         LocalDate today = LocalDate.now();
