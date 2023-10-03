@@ -155,8 +155,11 @@ public class FuramaManagement {
                 System.out.println("key: " + this.facilityController.showFacility().keySet() + "value: " + this.facilityController.showFacility().values());
                 break;
             case 2:
-                this.facilityController.createFacility(createFacilityView());
-                System.out.println("Create Facility done");
+                Facility facility = createFacilityView();
+                if (facility != null) {
+                    this.facilityController.createFacility(facility);
+                    System.out.println("Create Facility done");
+                }
                 break;
             case 3:
                 LinkedHashMap<Facility, Integer> facilities = this.facilityController.showFacilityMaintenance();
