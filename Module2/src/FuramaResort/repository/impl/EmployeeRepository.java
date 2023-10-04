@@ -21,7 +21,7 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
         //List<Employee> employees = readEmployeeFromFile();
         List<Employee> employees = new ArrayList<>();
         employees.add(employee);
-        writeEmployeeToFile(employees,true);
+        writeEmployeeToFile(employees, true);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
                 break;
             }
         }
-        writeEmployeeToFile(employees,false);
+        writeEmployeeToFile(employees, false);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
                 break;
             }
         }
-        writeEmployeeToFile(employees,false);
+        writeEmployeeToFile(employees, false);
     }
 
     @Override
@@ -83,9 +83,9 @@ public class EmployeeRepository implements IPersonRepository<Employee> {
         return employees;
     }
 
-    private void writeEmployeeToFile(List<Employee> employees,Boolean flag) {
+    private void writeEmployeeToFile(List<Employee> employees, Boolean flag) {
         List<String> data = convertEmployeeToString(employees);
-        FileUtil.writeFile(EMPLOYEE_CSV, data,flag);
+        FileUtil.writeFile(EMPLOYEE_CSV, data, flag);
     }
 
     private static List<String> convertEmployeeToString(List<Employee> employees) {
