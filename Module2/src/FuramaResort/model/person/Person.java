@@ -1,5 +1,6 @@
 package FuramaResort.model.person;
 
+
 public abstract class Person {
     private String name;
     private String dateOfBirth;

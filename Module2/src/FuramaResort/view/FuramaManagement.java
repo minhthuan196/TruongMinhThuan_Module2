@@ -658,7 +658,7 @@ public class FuramaManagement {
                 if (checkDateOfBirth(dateOfBirth)) {
                     break;
                 } else {
-                    System.out.println("age over 18. Enter again!!!");
+                    System.out.println("age >= 18 And <= 60. Enter again!!!");
                 }
             } catch (DateTimeParseException e) {
                 System.out.println("date of birth yy/MM/yyyy. Enter again!!!");
@@ -697,7 +697,7 @@ public class FuramaManagement {
         LocalDate date1 = LocalDate.parse(date, dateTimeFormatter);
         LocalDate today = LocalDate.now();
         Period period = Period.between(date1, today);
-        return period.getYears() >= 18;
+        return (period.getYears() >= 18 && period.getYears() <= 60);
     }
 
     private String inputNameNeedFind() {
@@ -931,7 +931,7 @@ public class FuramaManagement {
     private String inputNameService() {
         String name;
         do {
-            System.out.println("Enter name service (Special):");
+            System.out.println("Enter name service (Special Service):");
             name = scanner.nextLine();
             if (checkName(name)) {
                 break;
@@ -1029,7 +1029,7 @@ public class FuramaManagement {
     private String inputRoomStandards() {
         String name;
         do {
-            System.out.println("Enter room standards (Special):");
+            System.out.println("Enter room standards (Special Room Standards):");
             name = scanner.nextLine();
             if (checkName(name)) {
                 break;
