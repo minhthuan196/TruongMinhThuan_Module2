@@ -5,22 +5,20 @@ import FuramaResort.model.person.Customer;
 import FuramaResort.utils.RegexUtil;
 import FuramaResort.utils.ConfirmUtil;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 public class CustomerView {
     private final CustomerController customerController = new CustomerController();
     private final Scanner scanner = new Scanner(System.in);
-    private final RegexUtil regexUtil = new RegexUtil();
-    private final ConfirmUtil confirmUtil = new ConfirmUtil();
-    private final PersonView personView = new PersonView();
     private static final String ID_CUSTOMER = "^KH-[0-9]{4}$";
 
     public void managementCustomer() {
         do {
             switch (chooseMenuCustomer()) {
                 case 1:
-                    System.out.println(customerController.showCustomer());
+                    displayListCustomer(customerController.showCustomer());
                     break;
                 case 2:
                     this.customerController.createCustomer(createCustomerNew());
@@ -47,17 +45,30 @@ public class CustomerView {
                     }
                     break;
                 case 5:
-                    List<Customer> customers = customerController.findCustomer(personView.inputNameNeedFind());
+                    List<Customer> customers = customerController.findCustomer(PersonView.inputNameNeedFind());
                     if (customers.size() == 0) {
                         System.out.println("Name not found!!!");
                     } else {
-                        System.out.println(customers);
+                        displayListCustomer(customers);
                     }
                     break;
                 case 6:
                     return;
             }
         } while (true);
+    }
+
+    private void displayListCustomer(List<Customer> customers) {
+        System.out.println("=============LIST CUSTOMER=============");
+        System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n"
+                , "Id Customer", "Name", "Date Of Birth", "Gender", "Identity Card",
+                "Phone Number", "Mail", "Customer Type", "Address");
+        for (Customer customer : customers) {
+            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n",
+                    customer.getIdCustomer(), customer.getName(), customer.getDateOfBirth()
+                    , customer.getGender(), customer.getIdentityCard(), customer.getPhoneNumber()
+                    , customer.getMail(), customer.getCustomerType(), customer.getAddress());
+        }
     }
 
     private Customer getCustomerDetail(String idCustomer) {
@@ -88,7 +99,7 @@ public class CustomerView {
     }
 
     private void deleteCustomer(String idCustomer) {
-        int confirm = confirmUtil.getConfirm(idCustomer);
+        int confirm = ConfirmUtil.getConfirm(idCustomer);
         switch (confirm) {
             case 1:
                 this.customerController.removeCustomer(idCustomer);
@@ -124,7 +135,7 @@ public class CustomerView {
     }
 
     private void inputCustomer(Customer customer) {
-        personView.inputInformationPerson(customer);
+        PersonView.inputInformationPerson(customer);
         String customerType = inputCustomerType();
         customer.setCustomerType(customerType);
         String address = inputAddressCustomer();
@@ -184,7 +195,7 @@ public class CustomerView {
         do {
             System.out.println("Enter ID Customer (KH-1234): ");
             idCustomer = scanner.nextLine();
-            if (regexUtil.validateString(idCustomer, ID_CUSTOMER)) {
+            if (RegexUtil.validateString(idCustomer, ID_CUSTOMER)) {
                 return idCustomer;
             } else {
                 System.out.println("Invalid!!!");
@@ -230,22 +241,22 @@ public class CustomerView {
                 } while (true);
                 switch (choiceEditAttribute) {
                     case 1:
-                        customer.setName(personView.inputName());
+                        customer.setName(PersonView.inputName());
                         break;
                     case 2:
-                        customer.setDateOfBirth(personView.inputDateOfBirth());
+                        customer.setDateOfBirth(PersonView.inputDateOfBirth());
                         break;
                     case 3:
-                        customer.setGender(personView.inputGender());
+                        customer.setGender(PersonView.inputGender());
                         break;
                     case 4:
-                        customer.setIdentityCard(personView.inputIdentityCard());
+                        customer.setIdentityCard(PersonView.inputIdentityCard());
                         break;
                     case 5:
-                        customer.setPhoneNumber(personView.inputPhoneNumber());
+                        customer.setPhoneNumber(PersonView.inputPhoneNumber());
                         break;
                     case 6:
-                        customer.setMail(personView.inputEmail());
+                        customer.setMail(PersonView.inputEmail());
                         break;
                     case 7:
                         customer.setCustomerType(inputCustomerType());

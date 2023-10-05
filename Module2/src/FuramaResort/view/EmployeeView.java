@@ -10,10 +10,7 @@ import java.util.Scanner;
 
 public class EmployeeView {
     private final EmployeeController employeeController = new EmployeeController();
-    private final PersonView personView = new PersonView();
     private final Scanner scanner = new Scanner(System.in);
-    private final RegexUtil regexUtil = new RegexUtil();
-    private final ConfirmUtil confirmUtil = new ConfirmUtil();
     private static final String ID_EMPLOYEE = "^NV-[0-9]{4}$";
 
 
@@ -21,7 +18,7 @@ public class EmployeeView {
         do {
             switch (chooseMenuEmployee()) {
                 case 1:
-                    System.out.println(employeeController.showEmployee());
+                    displayListEmployee(employeeController.showEmployee());
                     break;
                 case 2:
                     this.employeeController.createEmployee(createEmployeeNew());
@@ -48,17 +45,30 @@ public class EmployeeView {
                     }
                     break;
                 case 5:
-                    List<Employee> employees = employeeController.findEmployee(personView.inputNameNeedFind());
+                    List<Employee> employees = employeeController.findEmployee(PersonView.inputNameNeedFind());
                     if (employees.size() == 0) {
                         System.out.println("Name not found!!!");
                     } else {
-                        System.out.println(employees);
+                        displayListEmployee(employees);
                     }
                     break;
                 case 6:
                     return;
             }
         } while (true);
+    }
+
+    private void displayListEmployee(List<Employee> employees) {
+        System.out.println("=============LIST EMPLOYEE=============");
+        System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n"
+                , "Id Employee", "Name", "Date Of Birth", "Gender", "Identity Card",
+                "Phone Number", "Mail", "Academic Level", "Position", "Salary");
+        for (Employee employee : employees) {
+            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n",
+                    employee.getIdEmployee(), employee.getName(), employee.getDateOfBirth()
+                    , employee.getGender(), employee.getIdentityCard(), employee.getPhoneNumber(), employee.getMail()
+                    , employee.getAcademicLevelEmployee(), employee.getPositionEmployee(), employee.getSalary());
+        }
     }
 
     private Employee createEmployeeNew() {
@@ -112,7 +122,7 @@ public class EmployeeView {
     }
 
     private void inputEmployee(Employee employee) {
-        personView.inputInformationPerson(employee);
+        PersonView.inputInformationPerson(employee);
         employee.setAcademicLevelEmployee(inputAcademicLevelEmployee());
         employee.setPositionEmployee(inputPositionEmployee());
         employee.setSalary(inputSalaryEmployee());
@@ -208,7 +218,7 @@ public class EmployeeView {
         do {
             System.out.println("Enter ID Employee (NV-1234): ");
             idEmployee = scanner.nextLine();
-            if (regexUtil.validateString(idEmployee, ID_EMPLOYEE)) {
+            if (RegexUtil.validateString(idEmployee, ID_EMPLOYEE)) {
                 return idEmployee;
             } else {
                 System.out.println("ID format is not correct!!!");
@@ -246,22 +256,22 @@ public class EmployeeView {
                 } while (true);
                 switch (choiceEditAttribute) {
                     case 1:
-                        employee.setName(personView.inputName());
+                        employee.setName(PersonView.inputName());
                         break;
                     case 2:
-                        employee.setDateOfBirth(personView.inputDateOfBirth());
+                        employee.setDateOfBirth(PersonView.inputDateOfBirth());
                         break;
                     case 3:
-                        employee.setGender(personView.inputGender());
+                        employee.setGender(PersonView.inputGender());
                         break;
                     case 4:
-                        employee.setIdentityCard(personView.inputIdentityCard());
+                        employee.setIdentityCard(PersonView.inputIdentityCard());
                         break;
                     case 5:
-                        employee.setPhoneNumber(personView.inputPhoneNumber());
+                        employee.setPhoneNumber(PersonView.inputPhoneNumber());
                         break;
                     case 6:
-                        employee.setMail(personView.inputEmail());
+                        employee.setMail(PersonView.inputEmail());
                         break;
                     case 7:
                         employee.setAcademicLevelEmployee(inputAcademicLevelEmployee());
@@ -291,7 +301,7 @@ public class EmployeeView {
     }
 
     private void deleteEmployee(String idEmployee) {
-        int confirm = confirmUtil.getConfirm(idEmployee);
+        int confirm = ConfirmUtil.getConfirm(idEmployee);
         switch (confirm) {
             case 1:
                 this.employeeController.removeEmployee(idEmployee);

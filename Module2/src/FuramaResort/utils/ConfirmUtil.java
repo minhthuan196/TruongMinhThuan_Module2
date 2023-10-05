@@ -3,9 +3,9 @@ package FuramaResort.utils;
 import java.util.Scanner;
 
 public class ConfirmUtil {
-    private final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public int getConfirm(String id) {
+    public static int getConfirm(String id) {
         int confirm;
         do {
             try {

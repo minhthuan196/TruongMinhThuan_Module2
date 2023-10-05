@@ -10,14 +10,13 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class PersonView {
-    private final Scanner scanner = new Scanner(System.in);
-    private final RegexUtil regexUtil = new RegexUtil();
+    private static final Scanner scanner = new Scanner(System.in);
     private static final String NAME_EMPLOYEE = "^[A-Z][a-z]{0,10}$";
     private static final String IDENTITY_CARD_EMPLOYEE = "^([0-9]{9}|[0-9]{12})$";
     private static final String PHONE_NUMBER_EMPLOYEE = "^0[0-9]{9}$";
     private static final String EMAIL_EMPLOYEE = "(^.*@gmail.com$)|(^.*@outlook.com$)";
 
-    public String inputNameNeedFind() {
+    public static String inputNameNeedFind() {
         String name;
         do {
             System.out.println("Enter name need find: ");
@@ -31,7 +30,7 @@ public class PersonView {
         return name;
     }
 
-    public void inputInformationPerson(Person person) {
+    public static void inputInformationPerson(Person person) {
         person.setName(inputName());
         person.setDateOfBirth(inputDateOfBirth());
         person.setGender(inputGender());
@@ -40,7 +39,7 @@ public class PersonView {
         person.setMail(inputEmail());
     }
 
-    public String inputName() {
+    public static String inputName() {
         String name;
         do {
             System.out.println("Enter name (Nguyen Van A): ");
@@ -54,12 +53,12 @@ public class PersonView {
         return name;
     }
 
-    public String inputEmail() {
+    public static String inputEmail() {
         String mail;
         do {
             System.out.println("Enter mail(x@gmail.com/x@outlook.com):");
             mail = scanner.nextLine();
-            if (this.regexUtil.validateString(mail, EMAIL_EMPLOYEE)) {
+            if (RegexUtil.validateString(mail, EMAIL_EMPLOYEE)) {
                 break;
             } else {
                 System.out.println("Invalid!!!");
@@ -68,7 +67,7 @@ public class PersonView {
         return mail;
     }
 
-    public String inputGender() {
+    public static String inputGender() {
         int choiceGender;
         do {
             try {
@@ -95,12 +94,12 @@ public class PersonView {
         }
     }
 
-    public String inputPhoneNumber() {
+    public static String inputPhoneNumber() {
         String phoneNumber;
         do {
             System.out.println("Enter phone Number (0XXXXXXXXX):");
             phoneNumber = scanner.nextLine();
-            if (regexUtil.validateString(phoneNumber, PHONE_NUMBER_EMPLOYEE)) {
+            if (RegexUtil.validateString(phoneNumber, PHONE_NUMBER_EMPLOYEE)) {
                 break;
             } else {
                 System.out.println("Phone number 10 and start 0.Enter again!!!");
@@ -109,12 +108,12 @@ public class PersonView {
         return phoneNumber;
     }
 
-    public String inputIdentityCard() {
+    public static String inputIdentityCard() {
         String identityCard;
         do {
             System.out.println("Enter identity Card (9 or 12 number:)");
             identityCard = scanner.nextLine();
-            if (regexUtil.validateString(identityCard, IDENTITY_CARD_EMPLOYEE)) {
+            if (RegexUtil.validateString(identityCard, IDENTITY_CARD_EMPLOYEE)) {
                 break;
             } else {
                 System.out.println("Identity card 9 or 12 number. Enter again!!!");
@@ -123,7 +122,7 @@ public class PersonView {
         return identityCard;
     }
 
-    public String inputDateOfBirth() {
+    public static String inputDateOfBirth() {
         String dateOfBirth;
         do {
             System.out.println("Enter date of birth (yy/MM/yyyy): ");
@@ -141,18 +140,18 @@ public class PersonView {
         return dateOfBirth;
     }
 
-    public boolean checkName(String str) {
+    public static boolean checkName(String str) {
         str = str.trim();
         String[] arrayStr = str.split(" ");
         for (String s : arrayStr) {
-            if (!regexUtil.validateString(s, NAME_EMPLOYEE)) {
+            if (!RegexUtil.validateString(s, NAME_EMPLOYEE)) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean checkDateOfBirth(String date) {
+    private static boolean checkDateOfBirth(String date) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date1 = LocalDate.parse(date, dateTimeFormatter);
         LocalDate today = LocalDate.now();

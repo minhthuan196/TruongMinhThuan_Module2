@@ -13,10 +13,7 @@ import java.util.Scanner;
 
 public class FacilityView {
     private final FacilityController facilityController = new FacilityController();
-    private final ConfirmUtil confirmUtil = new ConfirmUtil();
-    private final PersonView personView = new PersonView();
     private final Scanner scanner = new Scanner(System.in);
-    private final RegexUtil regexUtil = new RegexUtil();
     private static final String ID_VILLA = "^SVVL-[0-9]{4}$";
     private static final String ID_ROOM = "^SVRO-[0-9]{4}$";
     private static final String ID_HOUSE = "^SVHO-[0-9]{4}$";
@@ -25,7 +22,7 @@ public class FacilityView {
         do {
             switch (chooseMenuFacility()) {
                 case 1:
-                    System.out.println("key: " + this.facilityController.showFacility().keySet() + "value: " + this.facilityController.showFacility().values());
+                    System.out.println(this.facilityController.showFacility().keySet() + "Time use: " + this.facilityController.showFacility().values());
                     break;
                 case 2:
                     Facility facility = createFacilityView();
@@ -86,7 +83,7 @@ public class FacilityView {
         do {
             System.out.println("Enter ID service House (SVHO-1234):");
             idServiceHouse = scanner.nextLine();
-            if (this.regexUtil.validateString(idServiceHouse, ID_HOUSE)) {
+            if (RegexUtil.validateString(idServiceHouse, ID_HOUSE)) {
                 return idServiceHouse;
             } else {
                 System.out.println("Invalid!!!");
@@ -99,7 +96,7 @@ public class FacilityView {
         do {
             System.out.println("Enter ID service Room (SVRO-1234):");
             idServiceRoom = scanner.nextLine();
-            if (this.regexUtil.validateString(idServiceRoom, ID_ROOM)) {
+            if (RegexUtil.validateString(idServiceRoom, ID_ROOM)) {
                 return idServiceRoom;
             } else {
                 System.out.println("Invalid!!!");
@@ -134,7 +131,7 @@ public class FacilityView {
         do {
             System.out.println("Enter ID service Villa (SVVL-1234):");
             idServiceVilla = scanner.nextLine();
-            if (this.regexUtil.validateString(idServiceVilla, ID_VILLA)) {
+            if (RegexUtil.validateString(idServiceVilla, ID_VILLA)) {
                 return idServiceVilla;
             } else {
                 System.out.println("Invalid!!!");
@@ -175,7 +172,9 @@ public class FacilityView {
         do {
             System.out.println("Enter id Facility need remove (SVVL-1234 or SVHO-1234 or SVRO-1234): ");
             idFacility = scanner.nextLine();
-            if (regexUtil.validateString(idFacility, ID_VILLA) || regexUtil.validateString(idFacility, ID_HOUSE) || regexUtil.validateString(idFacility, ID_ROOM)) {
+            if (RegexUtil.validateString(idFacility, ID_VILLA)
+                    || RegexUtil.validateString(idFacility, ID_HOUSE)
+                    || RegexUtil.validateString(idFacility, ID_ROOM)) {
                 return idFacility;
             } else {
                 System.out.println("Invalid. Enter again!!!");
@@ -204,7 +203,7 @@ public class FacilityView {
         do {
             System.out.println("Enter name service (Special Service):");
             name = scanner.nextLine();
-            if (personView.checkName(name)) {
+            if (PersonView.checkName(name)) {
                 break;
             } else {
                 System.out.println("Invalid. Enter again!!!");
@@ -301,7 +300,7 @@ public class FacilityView {
         do {
             System.out.println("Enter room standards (Special Room Standards):");
             name = scanner.nextLine();
-            if (personView.checkName(name)) {
+            if (PersonView.checkName(name)) {
                 break;
             } else {
                 System.out.println("Invalid. Enter again!!!");
@@ -372,7 +371,7 @@ public class FacilityView {
     }
 
     private void deleteFacility(String idFacility) {
-        int confirm = confirmUtil.getConfirm(idFacility);
+        int confirm = ConfirmUtil.getConfirm(idFacility);
         switch (confirm) {
             case 1:
                 this.facilityController.removeFacility(getFacilityRemove(idFacility));

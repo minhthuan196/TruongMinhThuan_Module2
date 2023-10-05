@@ -39,6 +39,6 @@ public class House extends Facility {
                 ", MaximumNumber Of People = " + getMaximumNumberOfPeople() +
                 ", Rental Type = " + getRentalType() +
                 ", Room Standards = " + getRoomStandards() +
-                ", Number Of Floors = " + getNumberOfFloors() + "\n";
+                ", Number Of Floors = " + getNumberOfFloors() +"\n";
     }
 }
